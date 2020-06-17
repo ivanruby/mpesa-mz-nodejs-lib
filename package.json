@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/ivanruby/mpesa-nodejs-api/issues"
   },
-  "homepage": "https://github.com/ivanruby/mpesa-nodejs-api#readme"
+  "homepage": "https://github.com/ivanruby/mpesa-nodejs-api#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
 }
