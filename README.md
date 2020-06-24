@@ -13,16 +13,6 @@ Provide a straightforward, Promise-based implementation of the M-Pesa API in Nod
 Also, be an agnostic-library by treating config and transaction details as data, rather than dependencies
 
 
-## Usage
-
-### 1. Test/Develop
-```
-npm install mpesa-nodejs-api
-cd mpesa-nodejs-api
-npm .
-npm run test
-```
-
 ### Customer to Business (C2B) transaction
 ```javascript
 Transaction = require('mpesa-nodejs-api')
