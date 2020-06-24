@@ -1,22 +1,29 @@
-# mpesa-nodejs-api 
+# mpesa-nodejs-api - Not yet functional
 ![GitHub](https://img.shields.io/github/license/ivanruby/mpesa-nodejs-api)
 
 
-Node.js version of the mpesa Mozambique API
+A Node.js version of the M-Pesa Mozambique API
 
 Initially, a port of [mpesa-php-api](https://github.com/abdulmueid/mpesa-php-ap) to Node.js
+
+
+## Goals
+
+Provide a straightforward, Promise-based implementation of the M-Pesa API in Node.js.
+Also, be an agnostic-library by treating config and transaction details as data, rather than dependencies
+
 
 ## Usage
 
 ### 1. Test/Develop
 ```
 npm install mpesa-nodejs-api
-cd mpesa-nodjs-api
+cd mpesa-nodejs-api
 npm .
 npm run test
 ```
 
-### Sample usage: Customer to Business (C2B) transaction
+### Customer to Business (C2B) transaction
 ```javascript
 Transaction = require('mpesa-nodejs-api')
 let config = {
@@ -45,7 +52,7 @@ transaction.c2b({
     })
 ```
 
-### Sample usage: Querying status of an existing transaction
+### Querying status of an existing transaction
 ```javascript
 Transaction = require('mpesa-nodejs-api')
 
@@ -73,7 +80,7 @@ transaction.query({
     })
 ```
 
-### Sample usage: Reversal of an existing transaction
+### Reversal of an existing transaction
 ```javascript
 Transaction = require('mpesa-nodejs-api')
 
@@ -101,3 +108,6 @@ transaction.query({
         console.log(error)
     })
 ```
+
+## License
+[MIT License](LICENSE) &copy; 2020 Ivan Ruby
