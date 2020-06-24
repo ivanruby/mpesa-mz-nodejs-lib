@@ -34,11 +34,11 @@ transaction = new Transaction(config)
 
 // initiate a promise-based C2B transaction
 transaction.c2b({
-    amount: <floating-point number>,
-    msisdn: '<valid/invalid MSISDN>',
-    reference: '<Transaction Reference>',
-    third_party_reference: '<Third-party reference>'
-    })
+        amount: <floating-point number>,
+        msisdn: '<valid/invalid MSISDN>',
+        reference: '<Transaction Reference>',
+        third_party_reference: '<Third-party reference>'
+        })
     // handle success
     .then(function(response){
         console.log(response)
@@ -70,8 +70,8 @@ transaction = new Transaction(config)
 
 // query the status of an existing transaction
 transaction.query({
-    reference: '<Transaction reference>',
-    third_party_reference: '<Third-party reference>'
+        reference: '<Transaction reference>',
+        third_party_reference: '<Third-party reference>'
     })
     // handle success
     .then(function(response){
@@ -104,9 +104,9 @@ transaction = new Transaction(config)
 
 // Reverse a committed transaction
 transaction.reverse({
-    amount: <floating-point number>,
-    transaction_id: '<Transaction ID>',
-    third_party_reference: '<Third-party reference>'
+        amount: <floating-point number>,
+        transaction_id: '<Transaction ID>',
+        third_party_reference: '<Third-party reference>'
     })
     // Handle success
     .then(function(response){
