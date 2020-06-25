@@ -4,7 +4,7 @@
 
 A Node.js version of the M-Pesa Mozambique API
 
-Initially, a port of [mpesa-php-api](https://github.com/abdulmueid/mpesa-php-ap) to Node.js
+Initially, a port of [mpesa-php-api](https://github.com/abdulmueid/mpesa-php-api) to Node.js
 
 
 ## Goals
