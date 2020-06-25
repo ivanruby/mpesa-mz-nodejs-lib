@@ -1,5 +1,5 @@
 const axios = require('axios')
-const helper = require('utils/helpers.js')
+const helpers = require("utils/helpers.js")
 
 function Transaction(options){
     // Configuration variables
@@ -23,18 +23,41 @@ function Transaction(options){
      * @param string $msisdn
      * @param string $reference
      * @param string $third_party_reference
-     * @return TransactionResponseInterface
+     * @return TransactionResponse
      * @throws Exception
      */
-    const c2b = function (transaction_data) {
-        return new Promise(function(resolve, reject){
-            this.amount = round(amount, 2);
+    this.c2b = function(transaction_data){
+        /*
+            Check existence and validity of each transaction_data obj property
+        */
+
+        // amount param is valid
+        if ( !(transaction_data.hasOwnProperty("amount") && transaction_data.amount > 0) )
+            return new Error("Missing or invalid C2B transaction data: Amount")
+        
+        // msisdn param is valid
+        if ( !(transaction_data.hasOwnProperty("msisdn") && helpers.isValidMSISDN(transaction_data.msisdn)) )
+            return new Error("Missing or invalid C2B transaction data: MSISDN")
+
+        // reference param is valid
+        if ( !(transaction_data.hasOwnProperty("reference") && transaction_data.reference != '') )
+            return new Error("Missing or invalid C2B transaction data: Reference")
+        
+        // third_party_reference param is valid
+        if ( !(transaction_data.hasOwnProperty('third_party_reference') && transaction_data.third_party_reference != '') )
+            return new Error("Missing or invalid C2B transaction data: Third party reference")
+        
+        // If all transaction properties exist and are valid, return promise
+        return new Promise(function (resolve, reject) {
+            transaction_data.msisdn = helpers.normalizeMSISDN(transaction_data.msisdn)
+            transaction_data.amount = Number.parseFloat(transaction_data).toFixed(2)
+
             this.payload = {
                 input_ServiceProviderCode:  this.service_provider_code,
                 input_CustomerMSISDN:       transaction_data.msisdn,
                 input_Amount:               transaction_data.amount,
                 input_TransactionReference: transaction_data.reference,
-                input_ThirdPartyReference:  transaction_data.hird_party_reference
+                input_ThirdPartyReference:  this.third_party_reference
             }
             
             let url = 'https://' + this.api_host + ':18352/ipg/v1x/c2bPayment/singleStage/'
@@ -50,14 +73,14 @@ function Transaction(options){
                     'Authorization: ':  this.getBearerToken()
                 }
             })
-            .then(function(data){
-                return response(data)
+            .then(function(response){
+                resolve(response)
             })
             .catch(function(error){
-                return reject(error)
+                reject(error) 
             })
-        }
+        })
     }
 }
 
-export default new Transaction;
+module.exports = Transaction

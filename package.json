@@ -4,7 +4,7 @@
   "description": "A node.js version of the mPesa Mozambique API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/ivanruby/mpesa-nodejs-api#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.19.2"
+  },
+  "devDependencies": {
     "dotenv": "^8.2.0"
   }
 }
