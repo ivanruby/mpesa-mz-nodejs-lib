@@ -27,7 +27,8 @@ console.log("Service provider code: " + (transaction.hasOwnProperty('service_pro
 console.log("Initiator identifier: " + (transaction.hasOwnProperty('initiator_identifier')? transaction.initiator_identifier : "null"))
 console.log("Security credential: " + (transaction.hasOwnProperty('security_credential')? transaction.security_credential : "null"))
 
-console.log("Now, verifying that a C2B occurs")
+console.log("================ C2B Transaction =============")
+console.log("Generated Bearer token: " + transaction.getBearerToken())
 // transaction.c2b()
 //     .then(function(response){
 //         console.log('Success!')

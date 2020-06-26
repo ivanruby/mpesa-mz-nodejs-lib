@@ -1,5 +1,5 @@
 const axios = require('axios')
-const helpers = require("utils/helpers.js")
+const helpers = require("./utils/helpers.js")
 
 function Transaction(options){
     // Configuration variables
@@ -11,11 +11,27 @@ function Transaction(options){
     this.initiator_identifier =     options.initiator_identifier,
     this.security_credential =      options.security_credential
 
-    // Transaction-specific variables
-    this.amount;
-    this.msisdn;
-    this.reference;
-    this.third_party_reference;
+    /**
+     * Generates a Bearer Token 
+     * @returns bearer_token
+     */
+    this.getBearerToken = function(){
+        // Structuring certificate string
+        let certificate = "-----BEGIN PUBLIC KEY-----\n"
+        certificate += helpers.wordwrap(this.public_key,{width: 60, cut: true, indent: ''})
+        certificate += "\n-----END PUBLIC KEY-----"
+
+        // Exctract public key from formatted certificate
+        let pk = new helpers.NodeRSA()
+        pk.importKey(Buffer.from(certificate), 'public')
+
+        // Encryt API key (data) using public key 
+        let token = pk.encrypt(Buffer.from(this.api_key))
+        
+        //console.log(token)
+        // Return formatted string, Bearer token 
+        return 'Bearer ' + Buffer.from(token).toString('base64')
+    }
 
     /**
      * Initiates a C2B transaction on the M-Pesa API.
