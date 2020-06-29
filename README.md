@@ -12,6 +12,12 @@ Initially, a port of [mpesa-php-api](https://github.com/abdulmueid/mpesa-php-api
 Provide a straightforward, Promise-based implementation of the M-Pesa API in Node.js.
 Also, be an agnostic-library by treating config and transaction details as data, rather than dependencies
 
+## Status
+[X] C2B Transaction
+
+[] Transaction status query
+
+[X] Transaction reversal
 
 ### Customer to Business (C2B) transaction
 ```javascript
