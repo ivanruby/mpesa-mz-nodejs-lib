@@ -1,4 +1,4 @@
-# mpesa-nodejs-api - Not yet functional
+# mpesa-nodejs-api
 ![GitHub](https://img.shields.io/github/license/ivanruby/mpesa-nodejs-api)
 
 
