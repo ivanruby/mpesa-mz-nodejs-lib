@@ -57,22 +57,7 @@ transaction.c2b({
 
 ### Querying status of an existing transaction
 ```javascript
-// include the library
-Transaction = require('mpesa-nodejs-api')
-
-// create the config object
-let config = {
-    public_key: '<Public key>',
-    api_host: 'api.sandbox.vm.co.mz',
-    api_key: '<API key>',
-    origin: '<Origin>',
-    service_provider_code: '<Service provider code>',
-    initiator_identifier: '<Initiator Identifier>',
-    security_credential: '<Security Credential>'
-}
-
-// instantiate the Transaction object, initializing it with valid config
-transaction = new Transaction(config)
+// ... Assuming an initialized Transaction object
 
 // query the status of an existing transaction
 transaction.query({
@@ -91,34 +76,19 @@ transaction.query({
 
 ### Reversal of an existing transaction
 ```javascript
-// include the library
-Transaction = require('mpesa-nodejs-api')
-
-// create the config object
-let config = {
-    public_key: '<Public key>',
-    api_host: 'api.sandbox.vm.co.mz',
-    api_key: '<API key>',
-    origin: '<Origin>',
-    service_provider_code: '<Service provider code>',
-    initiator_identifier: '<Initiator Identifier>',
-    security_credential: '<Security Credential>'
-}
-
-// instantiate the Transaction object, initializing it with valid config
-transaction = new Transaction(config)
+// ... Assuming an initialized Transaction object
 
 // Reverse a committed transaction
 transaction.reverse({
-        amount: <floating-point number>,
+        amount: '<floating-point number>',
         transaction_id: '<Transaction ID>',
         third_party_reference: '<Third-party reference>'
     })
-    // Handle success
+    // handle success
     .then(function(response){
         console.log(response)
     })
-    // Handle error
+    // handle error
     .catch(function(error){
         console.log(error)
     })
