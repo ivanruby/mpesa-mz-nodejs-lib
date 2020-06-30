@@ -20,7 +20,8 @@ transaction = new Transaction(opts)
 
 console.log(" ================ Starting Tests ==================")
 
+// Uncomment the feature to test - it is advised to test each individually, not sequentially at this point
 // config(transaction)
 // c2b(transaction)
-// query(transaction)
+query(transaction)
 // reversal(transaction)
