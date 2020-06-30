@@ -1,14 +1,14 @@
 {
-  "name": "mpesa-nodejs-api",
-  "version": "0.1.0",
-  "description": "A node.js version of the mPesa Mozambique API",
+  "name": "mpesa-mz-nodejs-lib",
+  "version": "0.3.0",
+  "description": "A node.js library for the M-Pesa Mozambique API",
   "main": "index.js",
   "scripts": {
     "test": "node tests/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ivanruby/mpesa-nodejs-api.git"
+    "url": "git+https://github.com/ivanruby/mpesa-mz-nodejs-lib.git"
   },
   "keywords": [
     "mpesa",
@@ -17,9 +17,9 @@
   "author": "Ivan Ruby",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ivanruby/mpesa-nodejs-api/issues"
+    "url": "https://github.com/ivanruby/mpesa-mz-nodejs-lib/issues"
   },
-  "homepage": "https://github.com/ivanruby/mpesa-nodejs-api#readme",
+  "homepage": "https://github.com/ivanruby/mpesa-mz-nodejs-lib#readme",
   "dependencies": {
     "axios": "^0.19.2",
     "node-rsa": "^1.0.8"
