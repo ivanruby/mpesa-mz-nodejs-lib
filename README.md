@@ -102,7 +102,7 @@ transaction.reverse({
     })
 ```
 
-In Production mode, all returned objects correspond to the response.data property. Future versions will distinguish response from response.data in returned messages according to the environmend (dev/prod)
+In Production mode, all returned objects correspond to the response.data property. Future versions will distinguish response from response.data in returned messages according to the environment (dev/prod)
 
 ## License
 [MIT License](LICENSE) &copy; 2020 Ivan Ruby
