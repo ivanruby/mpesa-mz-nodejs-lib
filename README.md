@@ -33,6 +33,10 @@ npm run docs
 ```
 For mac, run ```npm run docs:mac```
 
+
+## Examples 
+
+
 ### Customer to Business (C2B) transaction
 ```javascript
 // include the library
@@ -108,7 +112,7 @@ transaction.reverse({
     })
 ```
 
-In Production mode, all returned objects correspond to the ```response.data``` property.
+In the current version, all returned objects correspond to the ```response.data``` property.
 
 Future versions will distinguish ```response``` from ```response.data``` in returned messages according to the environment (dev/prod)
 
