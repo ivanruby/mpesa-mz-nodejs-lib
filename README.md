@@ -15,7 +15,7 @@ Also, be an agnostic-library by treating config and transaction details as data,
 ## Status
 [X] C2B Transaction
 
-[] Transaction status query
+[X] Transaction status query
 
 [X] Transaction reversal
 
@@ -93,6 +93,8 @@ transaction.reverse({
         console.log(error)
     })
 ```
+
+In Production mode, all returned objects correspond to the response.data property. Future versions will distinguish response from response.data in returned messages according to the environmend (dev/prod)
 
 ## License
 [MIT License](LICENSE) &copy; 2020 Ivan Ruby
