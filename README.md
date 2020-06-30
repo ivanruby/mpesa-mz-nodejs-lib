@@ -19,6 +19,14 @@ Also, be an agnostic-library by treating config and transaction details as data,
 
 [X] Transaction reversal
 
+## Test
+```
+git clone https://github.com/ivanruby/mpesa-mz-nodejs-lib.git
+cd mpesa-mz-nodejs-lib
+npm install
+npm test
+```
+
 ### Customer to Business (C2B) transaction
 ```javascript
 // include the library

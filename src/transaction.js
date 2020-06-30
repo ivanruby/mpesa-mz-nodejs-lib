@@ -13,7 +13,7 @@ function Transaction(options){
 
     /**
      * Generates a Bearer Token 
-     * @returns bearer_token
+     * @return {string} bearer_token
      */
     this.getBearerToken = function(){
         // Structuring certificate string
@@ -33,11 +33,11 @@ function Transaction(options){
 
     /**
      * Initiates a C2B transaction on the M-Pesa API.
-     * @param float $amount
-     * @param string $msisdn
-     * @param string $reference
-     * @param string $third_party_reference
-     * @return TransactionResponse
+     * @param {float} $amount
+     * @param {string} $msisdn
+     * @param {string} $reference
+     * @param {string} $third_party_reference
+     * @return {object} TransactionResponse
      * @throws Exception
      */
     this.c2b = async function(transaction_data){
@@ -71,9 +71,9 @@ function Transaction(options){
 
     /**
      * Initiates a transaction Query on the M-Pesa API.
-     * @param string $query_reference
-     * @param string $third_party_reference
-     * @return TransactionResponseInterface
+     * @param {string} query_reference
+     * @param {string} third_party_reference
+     * @return {object} TransactionResponse
      */
     this.query = async function (query_data) {
         let request = {
@@ -107,10 +107,10 @@ function Transaction(options){
 
     /**
      * Initiates a transaction Query on the M-Pesa API.
-     * @param float amount
-     * @param string transaction_id
-     * @param string third_party_reference
-     * @return TransactionResponse
+     * @param {number} amount
+     * @param {string} transaction_id
+     * @param {string} third_party_reference
+     * @return {object} TransactionResponse
      */
     this.reverse = function (transaction_data) {
         let request = {

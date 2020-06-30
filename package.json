@@ -1,10 +1,11 @@
 {
   "name": "mpesa-mz-nodejs-lib",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A node.js library for the M-Pesa Mozambique API",
   "main": "index.js",
   "scripts": {
-    "test": "node tests/index.js"
+    "test": "node tests/index.js",
+    "docs": "npx esdoc && start ./docs/index.html"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,13 @@
     "node-rsa": "^1.0.8"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "esdoc": "^1.1.0",
+    "esdoc-standard-plugin": "^1.0.0"
+  },
+  "esdoc": {
+    "source": "./src",
+    "destination": "./docs",
+    "plugins": [{"name": "esdoc-standard-plugin"}]
   }
 }
