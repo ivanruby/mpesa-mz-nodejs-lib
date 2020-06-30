@@ -27,6 +27,12 @@ npm install
 npm test
 ```
 
+## Documentation (Windows)
+```
+npm run docs
+```
+For mac, run ```npm run docs:mac```
+
 ### Customer to Business (C2B) transaction
 ```javascript
 // include the library
