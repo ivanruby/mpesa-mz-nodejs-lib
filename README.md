@@ -24,8 +24,13 @@ Also, be an agnostic-library by treating config and transaction details as data,
 git clone https://github.com/ivanruby/mpesa-mz-nodejs-lib.git
 cd mpesa-mz-nodejs-lib
 npm install
-npm test
 ```
+
+Rename ```example.env``` to ```.env``` and populate the fields with the necessary values.
+
+Next, run
+
+```npm test```
 
 ## Documentation (Windows)
 ```
