@@ -1,11 +1,8 @@
 {
-  "name": "@ivanruby/mpesa-mz-nodejs-lib",
+  "name": "mpesa-mz-nodejs-lib",
   "version": "0.3.1",
   "description": "A node.js library for the M-Pesa Mozambique API",
   "main": "dist/index.js",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "scripts": {
     "test": "node tests/index.js",
     "build": "webpack",
