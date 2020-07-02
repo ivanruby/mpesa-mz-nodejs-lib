@@ -19,6 +19,29 @@ Also, be an agnostic-library by treating config and transaction details as data,
 
 [X] Transaction reversal
 
+## Test
+```
+git clone https://github.com/ivanruby/mpesa-mz-nodejs-lib.git
+cd mpesa-mz-nodejs-lib
+npm install
+```
+
+Rename ```example.env``` to ```.env``` and populate the fields with the necessary values.
+
+Next, run
+
+```npm test```
+
+## Documentation (Windows)
+```
+npm run docs
+```
+For mac, run ```npm run docs:mac```
+
+
+## Examples 
+
+
 ### Customer to Business (C2B) transaction
 ```javascript
 // include the library
@@ -94,7 +117,9 @@ transaction.reverse({
     })
 ```
 
-In Production mode, all returned objects correspond to the response.data property. Future versions will distinguish response from response.data in returned messages according to the environmend (dev/prod)
+In the current version, all returned objects correspond to the ```response.data``` property.
+
+Future versions will distinguish ```response``` from ```response.data``` in returned messages according to the environment (dev/prod)
 
 ## License
 [MIT License](LICENSE) &copy; 2020 Ivan Ruby
