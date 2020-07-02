@@ -1,0 +1,10 @@
+.env
+.vscode
+node_modules
+docs
+dist
+src
+tests
+example.env
+package-lock.json
+webpack.config.js
