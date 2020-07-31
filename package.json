@@ -25,6 +25,7 @@
   "homepage": "https://github.com/ivanruby/mpesa-mz-nodejs-lib#readme",
   "dependencies": {
     "axios": "^0.19.2",
+    "buffer-from": "^1.1.1",
     "g": "^2.0.1",
     "node-rsa": "^1.0.8",
     "uglify-js": "^3.10.0"
@@ -33,6 +34,7 @@
     "dotenv": "^8.2.0",
     "esdoc": "^1.1.0",
     "esdoc-standard-plugin": "^1.0.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12"
   },

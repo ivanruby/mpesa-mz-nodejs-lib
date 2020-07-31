@@ -1,4 +1,4 @@
-const path = require("path");
+let path = require("path");
 
 module.exports = {
   entry: "./src/transaction.js",
