@@ -1,3 +1,10 @@
+/*!
+ * A Node.JS library for the M-Pesa Mozambique API
+ *  
+ * @author Ivan Ruby <https://ivanruby.com>
+ * @license MIT
+*/
+
 const axios = require('axios')
 const helpers = require("./utils/helpers.js")
 
@@ -10,11 +17,6 @@ function Transaction(options){
     this.service_provider_code =    options.service_provider_code,
     this.initiator_identifier =     options.initiator_identifier,
     this.security_credential =      options.security_credential,
-    this.request_headers = { 
-        'Content-Type': 'application/json', 
-        'Origin': this.origin, 
-        'Authorization': this.getBearerToken()
-    }
     
     /**
      * Generates a Bearer Token 
@@ -34,6 +36,15 @@ function Transaction(options){
         
         // Return formatted string, Bearer token in base64 format 
         return 'Bearer ' + Buffer.from(token).toString('base64')
+    }
+    
+    /**
+     * Creates the headers for each API request
+     */
+    this.request_headers = { 
+        'Content-Type': 'application/json', 
+        'Origin': this.origin, 
+        'Authorization': this.getBearerToken()
     }
 
     /**
