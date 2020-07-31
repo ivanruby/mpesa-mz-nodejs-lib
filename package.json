@@ -25,7 +25,9 @@
   "homepage": "https://github.com/ivanruby/mpesa-mz-nodejs-lib#readme",
   "dependencies": {
     "axios": "^0.19.2",
-    "node-rsa": "^1.0.8"
+    "g": "^2.0.1",
+    "node-rsa": "^1.0.8",
+    "uglify-js": "^3.10.0"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",

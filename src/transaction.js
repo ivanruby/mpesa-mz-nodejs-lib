@@ -9,8 +9,13 @@ function Transaction(options){
     this.origin =                   options.origin,
     this.service_provider_code =    options.service_provider_code,
     this.initiator_identifier =     options.initiator_identifier,
-    this.security_credential =      options.security_credential
-
+    this.security_credential =      options.security_credential,
+    this.request_headers = { 
+        'Content-Type': 'application/json', 
+        'Origin': this.origin, 
+        'Authorization': this.getBearerToken()
+    }
+    
     /**
      * Generates a Bearer Token 
      * @return {string} bearer_token
@@ -51,11 +56,7 @@ function Transaction(options){
                 input_TransactionReference: transaction_data.reference,
                 input_ThirdPartyReference:  transaction_data.third_party_reference
             },
-            headers: {
-                'Content-Type':   'application/json',
-                'Origin':          this.origin,
-                'Authorization':   this.getBearerToken()
-            }
+            headers: this.request_headers
         }
 
         return await new Promise(function (resolve, reject) {
@@ -86,11 +87,7 @@ function Transaction(options){
                 this.service_provider_code +
                 '&input_ThirdPartyReference=' +
                 query_data.third_party_reference,
-            headers: { 
-              'Content-Type': 'application/json', 
-              'Origin': this.origin, 
-              'Authorization': this.getBearerToken()
-            }
+            headers: this.request_headers
         }
 
         // If all transaction properties exist and are valid, return promise
@@ -124,11 +121,7 @@ function Transaction(options){
                 input_InitiatorIdentifier:  this.initiator_identifier,
                 input_SecurityCredential:   this.security_credential
             },
-            headers: {
-                'Content-Type':   'application/json',
-                'Origin':          this.origin,
-                'Authorization':   this.getBearerToken()
-            }
+            headers: this.request_headers
         }
 
         return new Promise(function (resolve, reject) {         
