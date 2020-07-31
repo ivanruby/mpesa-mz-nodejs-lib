@@ -13,11 +13,11 @@ Also, be an agnostic-library by treating config and transaction details as data,
 
 ## Status
 
-[checkbox:checked] C2B Transaction
+[x] C2B Transaction
 
-[checkbox:checked] Transaction status query
+[x] Transaction status query
 
-[checkbox:checked] Transaction reversal
+[x] Transaction reversal
 
 ## Test
 
