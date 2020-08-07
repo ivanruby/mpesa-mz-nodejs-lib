@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node tests/index.js",
-    "build": "uglifyjs src/transaction.js --compress --mangle --comments -o index.min.js",
+    "build": "uglifyjs src/transaction.js --compress --mangle --comments --sourcemap -o index.js",
     "docs": "npx esdoc && start ./docs/index.html",
     "docs:mac": "npx esdoc && open ./docs/index.html"
   },
