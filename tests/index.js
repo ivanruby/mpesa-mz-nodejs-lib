@@ -8,7 +8,7 @@ query = require('./tx_query')
 
 let opts = {
     public_key: process.env.PUBLIC_KEY,
-    api_host: process.env.API_HOST,
+    // api_host: process.env.API_HOST,
     api_key: process.env.API_KEY,
     origin: process.env.ORIGIN,
     service_provider_code: process.env.SERVICE_PROVIDER_CODE,
