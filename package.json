@@ -31,7 +31,7 @@
     "dotenv": "^8.2.0",
     "esdoc": "^1.1.0",
     "esdoc-standard-plugin": "^1.0.0",
-    "uglify-js": "^3.10.1"
+    "uglify-es": "^3.3.9"
   },
   "esdoc": {
     "source": "./src",
