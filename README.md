@@ -2,7 +2,7 @@
 
 ![GitHub](https://img.shields.io/github/license/ivanruby/mpesa-nodejs-api)
 
-A Node.js version of the M-Pesa Mozambique API
+A Node.js library for the M-Pesa Mozambique API
 
 Initially, a port of [mpesa-php-api](https://github.com/abdulmueid/mpesa-php-api) to Node.js
 
@@ -16,6 +16,13 @@ Also, be an agnostic-library by treating config and transaction details as data,
 - [x] C2B Transaction
 - [x] Transaction status query
 - [x] Transaction reversal
+
+## Roadmap
+
+- Unit tests (v0.4.x)
+- Code refactoring (entire codebase) (v0.5.x)
+- Documentation (dist + dist.min) (v0.5.x)
+- All tests passing, functionalities stable (v1.0.0)
 
 ## Test
 
@@ -41,11 +48,17 @@ For mac, run `npm run docs:mac`
 
 ## Examples
 
+### Installation
+
+```
+npm install mpesa-mz-nodejs-lib
+```
+
 ### Customer to Business (C2B) transaction
 
 ```javascript
 // include the library
-Transaction = require('mpesa-nodejs-api')
+Transaction = require('mpesa-mz-nodejs-lib')
 
 // create the config object
 let config = {
