@@ -61,7 +61,7 @@ describe('Transaction', function () {
             reference: process.env.TEST_REFERENCE,
             third_party_reference: process.env.TEST_THIRD_PARTY_REFERENCE
         }
-
+        // TODO: Change evals to transaction obja
         it('Amount: should be a number', function(){
             assert(isNumber(parseFloat(purchase.amount)))
         })

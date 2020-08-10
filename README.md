@@ -1,4 +1,4 @@
-# mpesa-nodejs-api
+# mpesa-mz-nodejs-lib
 
 ![GitHub](https://img.shields.io/github/license/ivanruby/mpesa-nodejs-api)
 
@@ -21,7 +21,7 @@ Also, be an agnostic-library by treating config and transaction details as data,
 
 - Unit tests (v0.4.x)
 - Code refactoring (entire codebase) (v0.5.x)
-- Documentation (dist + dist.min) (v0.5.x)
+- Documentation (dist + dist.min) (v0.6.x)
 - All tests passing, functionalities stable (v1.0.0)
 
 ## Test
