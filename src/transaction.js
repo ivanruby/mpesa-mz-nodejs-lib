@@ -14,37 +14,43 @@ NodeRSA = require("node-rsa");
  */
 module.exports = function (options) {
   // Configuration variables
-  this._public_key = options.public_key,
-  this._api_host = options.api_host,
-  this._api_key = options.api_key,
-  this._origin = options.origin,
-  this._service_provider_code = options.service_provider_code,
-  this._initiator_identifier = options.initiator_identifier,
-  this._security_credential = options.security_credential,
+  this._public_key = options.public_key || '',
+  this._api_host = options.api_host || '',
+  this._api_key = options.api_key || '',
+  this._origin = options.origin || '',
+  this._service_provider_code = options.service_provider_code || '',
+  this._initiator_identifier = options.initiator_identifier || '',
+  this._security_credential = options.security_credential || '',
   
   this._validMSISDN = '';
-
   this._isValidMSISDN = function(msisdn){
     isValid = false;
 
-    if ( msisdn.length == 12 && msisdn.substring(0, 3) == '258' ) {
-      buffer = msisdn.substring(3,5)
-      if (buffer == '84' || buffer == '85' || buffer == '86') {
-        this._validMSISDN = msisdn;
-        isValid = true;
-      }
-    } else if ( msisdn.length == 9) {
-      buffer = msisdn.substring(0,2)
-      if (buffer == '84' || buffer == '85' || buffer == '86') {
-        this._validMSISDN = '258' + msisdn;
-        isValid = true;
+    // Is it a number?
+    if (typeof parseInt(msisdn) == 'number'){
+      // Is the length 12 and starts with 258?
+      if ( msisdn.length == 12 && msisdn.substring(0, 3) == '258' ) {
+        buffer = msisdn.substring(3,5)
+        // Is it an 84, 85 or 86 number?
+        if (buffer == '84' || buffer == '85' || buffer == '86') {
+          this._validMSISDN = msisdn;
+          isValid = true;
+        }
+      // Otherwise, is the length 9?
+      } else if (msisdn.length == 9) {
+          buffer = msisdn.substring(0,2)
+          // Is it an 84, 85 or 86 number?
+          if (buffer == '84' || buffer == '85' || buffer == '86') {
+            this._validMSISDN = '258' + msisdn;
+            isValid = true;
+          }        
       }
     }
 
     return isValid;
   }
 
-  this._validation_errors = [];
+  this.validation_errors = [];
   /**
    * Validates all configuration parameters
    * @param {string} type
@@ -52,65 +58,65 @@ module.exports = function (options) {
    * @return {boolean}
    */
   this._isValidated = function(type, data){
-    this._validation_errors = [];
+    this.validation_errors = [];
 
     switch(type){
       case 'config':
         if (!this._api_host || this._api_host === '')
-          this._validation_errors.push("API Host ")
+          this.validation_errors.push(' API Host')
         
         if (!this._api_key || this._api_key === '')
-          this._validation_errors.push("API Key ")
+          this.validation_errors.push(' API Key')
 
         if (!this._initiator_identifier || this._initiator_identifier === '')
-          this._validation_errors.push("Initiator Identifier ")
+          this.validation_errors.push(' Initiator Identifier')
         
         if (!this._origin || this._origin === '')
-          this._validation_errors.push("Origin ")
+          this.validation_errors.push(' Origin')
         
         if (!this._public_key || this._public_key === '')
-          this._validation_errors.push("Public key ")
+          this.validation_errors.push(' Public key')
         
         if (!this._security_credential || this._security_credential === '')
-          this._validation_errors.push('Security credentials ')
+          this.validation_errors.push(' Security credentials')
         
         if (!this._service_provider_code || this._service_provider_code === '')
-          this._validation_errors.push('Service provider code ')
+          this.validation_errors.push(' Service provider code ')
         break;
       case 'c2b':
-        if ( !data.amount || data.amount === '' || !isNaN(parseFloat(data.amount)) )
-          this._validation_errors.push("C2B Amount ")
+        if ( !data.amount || data.amount === '' || isNaN(parseFloat(data.amount)) || parseFloat(data.amount) <= 0)
+          this.validation_errors.push(' C2B Amount')
         
         if ( !data.msisdn || data.msisdn === '' || !this._isValidMSISDN(data.msisdn) )
-          this._validation_errors.push("C2B MSISDN ")
+          this.validation_errors.push(' C2B MSISDN')
         
         if ( !data.reference || data.reference === '' )
-          this._validation_errors.push("C2B Reference ")
+          this.validation_errors.push(' C2B Reference')
         
         if ( !data.third_party_reference || data.third_party_reference === '' )
-          this._validation_errors.push("C2B 3rd-party Reference ")
+          this.validation_errors.push(' C2B 3rd-party Reference')
         
         break;
       case 'query':
         if ( !data.query_reference || data.query_reference === '' )
-          this._validation_errors.push("Query Reference ")
+          this.validation_errors.push(' Query Reference')
         
         if ( !data.third_party_reference || data.third_party_reference === '' )
-          this._validation_errors.push("Query 3rd-party Reference ")
+          this.validation_errors.push(' Query 3rd-party Reference')
         
         break;
       case 'reversal':
         if ( !data.amount || data.amount === '' || !isNaN(parseFloat(data.amount)) )
-          this._validation_errors.push("C2B Amount ")
+          this.validation_errors.push(' C2B Amount')
         
         if ( !data.transaction_id || data.transaction_id === '' )
-          this._validation_errors.push("C2B Amount ")
+          this.validation_errors.push(' C2B Transaction ID')
           
         if ( !data.third_party_reference || data.third_party_reference === '' )
-          this._validation_errors.push("C2B 3rd-party Reference ")
+          this.validation_errors.push(' C2B 3rd-party Reference')
     }
     
-    if (this._validation_errors.length > 0)
+    if (this.validation_errors.length > 0)
       return false
     
     return true
@@ -139,7 +145,7 @@ module.exports = function (options) {
       // Return formatted string, Bearer token in base64 format
       return "Bearer " + Buffer.from(token).toString("base64");
     } else {
-      throw Error("Missing or invalid configuration parameters: " + this._validation_errors.toString())
+      throw Error("Missing or invalid configuration parameters: " + this.validation_errors.toString())
     }
   };
 
@@ -156,7 +162,7 @@ module.exports = function (options) {
    * @param {string} $third_party_reference
    * @return {object} Promise
    */
-  this.c2b = async function (transaction_data) {
+  this.c2b = function (transaction_data) {
 
     if (this._isValidated('c2b', transaction_data)){
       request = {
@@ -173,7 +179,7 @@ module.exports = function (options) {
         headers: this._request_headers,
       };
 
-      return await new Promise(function (resolve, reject) {
+      return new Promise(function (resolve, reject) {
         axios(request)
           .then(function (response) {
             resolve(response);
@@ -183,7 +189,7 @@ module.exports = function (options) {
           });
       });
     } else {
-      throw Error("Missing or invalid configuration parameters: " + this._validation_errors.toString())
+      throw Error("Missing or invalid configuration parameters: " + this.validation_errors.toString())
     }
   },
     /**
@@ -219,7 +225,7 @@ module.exports = function (options) {
             });
         });
       } else {
-        throw Error("Missing or invalid configuration parameters: " + this._validation_errors.toString())
+        throw Error("Missing or invalid configuration parameters: " + this.validation_errors.toString())
       }
     };
 
@@ -258,7 +264,7 @@ module.exports = function (options) {
           });
       });
     } else {
-      throw Error("Missing or invalid configuration parameters: " + this._validation_errors.toString())
+      throw Error("Missing or invalid configuration parameters: " + this.validation_errors.toString())
     }  
   };
 
@@ -269,5 +275,5 @@ module.exports = function (options) {
       Authorization: this._getBearerToken(),
     }
   else
-    throw Error("Missing or invalid configuration parameters: " + this._validation_errors.toString())
+    throw Error("Missing or invalid configuration parameters: " + this.validation_errors.toString())
 }
