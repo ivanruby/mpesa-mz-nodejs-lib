@@ -12,7 +12,7 @@ NodeRSA = require("node-rsa");
  * MPesa Transaction class
  * @constructor 
  */
-function Transaction(options) {
+module.exports = function (options) {
   // Configuration variables
   this._public_key = options.public_key,
   this._api_host = options.api_host,
@@ -200,5 +200,3 @@ function Transaction(options) {
     }  
   };
 }
-
-module.exports = Transaction;
