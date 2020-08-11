@@ -8,7 +8,7 @@
     "build": "npx uglifyjs src/transaction.js --compress --mangle --comments --source-map -o index.js",
     "docs": "npx esdoc && start ./docs/index.html",
     "docs:mac": "npx esdoc && open ./docs/index.html",
-    "release": "npm run build && np --any-branch"
+    "release": "np --any-branch"
   },
   "repository": {
     "type": "git",
