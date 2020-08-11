@@ -22,6 +22,28 @@ module.exports = function (options) {
   this._initiator_identifier = options.initiator_identifier,
   this._security_credential = options.security_credential,
   
+  this._validMSISDN = '';
+
+  this._isValidMSISDN = function(msisdn){
+    isValid = false;
+
+    if ( msisdn.length == 12 && msisdn.substring(0, 3) == '258' ) {
+      buffer = msisdn.substring(3,5)
+      if (buffer == '84' || buffer == '85' || buffer == '86') {
+        this._validMSISDN = msisdn;
+        isValid = true;
+      }
+    } else if ( msisdn.length == 9) {
+      buffer = msisdn.substring(0,2)
+      if (buffer == '84' || buffer == '85' || buffer == '86') {
+        this._validMSISDN = '258' + msisdn;
+        isValid = true;
+      }
+    }
+
+    return isValid;
+  }
+
   this._validation_errors = [];
   /**
    * Validates all configuration parameters
@@ -56,10 +78,10 @@ module.exports = function (options) {
           this._validation_errors.push('Service provider code ')
         break;
       case 'c2b':
-        if ( !data.amount || data.amount === '' || !isNumber(parseFloat(data.amount)) )
+        if ( !data.amount || data.amount === '' || !isNaN(parseFloat(data.amount)) )
           this._validation_errors.push("C2B Amount ")
         
-        if ( !data.msisdn || data.msisdn === '' || !isValidMSISDN(data.msisdn) )
+        if ( !data.msisdn || data.msisdn === '' || !this._isValidMSISDN(data.msisdn) )
           this._validation_errors.push("C2B MSISDN ")
         
         if ( !data.reference || data.reference === '' )
@@ -78,7 +100,7 @@ module.exports = function (options) {
         
         break;
       case 'reversal':
-        if ( !data.amount || data.amount === '' || !isNumber(parseFloat(data.amount)) )
+        if ( !data.amount || data.amount === '' || !isNaN(parseFloat(data.amount)) )
           this._validation_errors.push("C2B Amount ")
         
         if ( !data.transaction_id || data.transaction_id === '' )
@@ -143,7 +165,7 @@ module.exports = function (options) {
           "https://" + this._api_host + ":18352/ipg/v1x/c2bPayment/singleStage/",
         data: {
           input_ServiceProviderCode: this._service_provider_code,
-          input_CustomerMSISDN: transaction_data.msisdn,
+          input_CustomerMSISDN: this._validMSISDN,
           input_Amount: parseFloat(transaction_data.amount).toFixed(2),
           input_TransactionReference: transaction_data.reference,
           input_ThirdPartyReference: transaction_data.third_party_reference,
