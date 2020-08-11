@@ -4,7 +4,9 @@ node_modules
 docs
 dist
 src
-tests
+test
 example.env
 package-lock.json
-webpack.config.js
+esdoc.json
+index.js.map
+LICENSE
