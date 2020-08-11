@@ -22,69 +22,109 @@ module.exports = function (options) {
   this._initiator_identifier = options.initiator_identifier,
   this._security_credential = options.security_credential,
   
-    /**
+  this._validation_errors = [];
+  /**
+   * Validates all configuration parameters
+   * @param {string} type
+   * @param {object} data
+   * @return {boolean}
+   */
+  this._isValidated = function(type, data){
+    this._validation_errors = [];
+
+    switch(type){
+      case 'config':
+        if (!this._api_host || this._api_host === '')
+          this._validation_errors.push("API Host ")
+        
+        if (!this._api_key || this._api_key === '')
+          this._validation_errors.push("API Key ")
+
+        if (!this._initiator_identifier || this._initiator_identifier === '')
+          this._validation_errors.push("Initiator Identifier ")
+        
+        if (!this._origin || this._origin === '')
+          this._validation_errors.push("Origin ")
+        
+        if (!this._public_key || this._public_key === '')
+          this._validation_errors.push("Public key ")
+        
+        if (!this._security_credential || this._security_credential === '')
+          this._validation_errors.push('Security credentials ')
+        
+        if (!this._service_provider_code || this._service_provider_code === '')
+          this._validation_errors.push('Service provider code ')
+        break;
+      case 'c2b':
+        if ( !data.amount || data.amount === '' || !isNumber(parseFloat(data.amount)) )
+          this._validation_errors.push("C2B Amount ")
+        
+        if ( !data.msisdn || data.msisdn === '' || !isValidMSISDN(data.msisdn) )
+          this._validation_errors.push("C2B MSISDN ")
+        
+        if ( !data.reference || data.reference === '' )
+          this._validation_errors.push("C2B Reference ")
+        
+        if ( !data.third_party_reference || data.third_party_reference === '' )
+          this._validation_errors.push("C2B 3rd-party Reference ")
+        
+        break;
+      case 'query':
+        if ( !data.query_reference || data.query_reference === '' )
+          this._validation_errors.push("Query Reference ")
+        
+        if ( !data.third_party_reference || data.third_party_reference === '' )
+          this._validation_errors.push("Query 3rd-party Reference ")
+        
+        break;
+      case 'reversal':
+        if ( !data.amount || data.amount === '' || !isNumber(parseFloat(data.amount)) )
+          this._validation_errors.push("C2B Amount ")
+        
+        if ( !data.transaction_id || data.transaction_id === '' )
+          this._validation_errors.push("C2B Amount ")
+          
+        if ( !data.third_party_reference || data.third_party_reference === '' )
+          this._validation_errors.push("C2B 3rd-party Reference ")
+    }
+    
+    if (this._validation_errors.length > 0)
+      return false
+    
+    return true
+  }
+
+  /**
    * Generates a Bearer Token
    * @return {string} bearer_token
    */
   this._getBearerToken = function () {
-    // Structuring certificate string
-    certificate =
-      "-----BEGIN PUBLIC KEY-----\n" +
-      this._public_key +
-      "\n-----END PUBLIC KEY-----";
+    if (this._isValidated('config', {})) {
+      // Structuring certificate string
+      certificate =
+        "-----BEGIN PUBLIC KEY-----\n" +
+        this._public_key +
+        "\n-----END PUBLIC KEY-----";
 
-    // Create NodeRSA object with public from formatted certificate
-    public_key = new NodeRSA();
-    public_key.setOptions({ encryptionScheme: "pkcs1" });
-    public_key.importKey(Buffer.from(certificate), "public");
+      // Create NodeRSA object with public from formatted certificate
+      public_key = new NodeRSA();
+      public_key.setOptions({ encryptionScheme: "pkcs1" });
+      public_key.importKey(Buffer.from(certificate), "public");
 
-    // Encryt API key (data) using public key
-    token = public_key.encrypt(Buffer.from(this._api_key));
+      // Encryt API key (data) using public key
+      token = public_key.encrypt(Buffer.from(this._api_key));
 
-    // Return formatted string, Bearer token in base64 format
-    return "Bearer " + Buffer.from(token).toString("base64");
+      // Return formatted string, Bearer token in base64 format
+      return "Bearer " + Buffer.from(token).toString("base64");
+    } else {
+      throw Error("Missing or invalid configuration parameters: " + this._validation_errors.toString())
+    }
   };
 
   /**
    * Hold the headers for each API request
    */
-  this._request_headers = {
-    "Content-Type": "application/json",
-    Origin: this._origin,
-    Authorization: this._getBearerToken(),
-  };
-
-  this._config_errors = [];
-
-  this._withValidConfig = function(){
-    this._config_errors = [];
-
-    if (!this._api_host || this._api_host === '')
-      this._config_errors.push("API Host ")
-    
-    if (!this._api_key || this._api_key === '')
-      this._config_errors.push("API Key ")
-
-    if (!this._initiator_identifier || this._initiator_identifier === '')
-      this._config_errors.push("Initiator Identifier ")
-    
-    if (!this._origin || this._origin === '')
-      this._config_errors.push("Origin ")
-    
-    if (!this._public_key || this._public_key === '')
-      this._config_errors.push("Public key ")
-    
-    if (!this._security_credential || this._security_credential === '')
-      this._config_errors.push('Security credentials ')
-    
-    if (!this._service_provider_code || this._service_provider_code === '')
-      this._config_errors.push('Service provider code ')
-    
-    if (this._config_errors.length > 0)
-      return false
-    else
-      return true
-  }
+  this._request_headers = {};
 
   /**
    * Initiates a C2B transaction on the M-Pesa API.
@@ -96,7 +136,7 @@ module.exports = function (options) {
    */
   this.c2b = async function (transaction_data) {
 
-    if (this._withValidConfig()){
+    if (this._isValidated('c2b', transaction_data)){
       request = {
         method: "post",
         url:
@@ -121,7 +161,7 @@ module.exports = function (options) {
           });
       });
     } else {
-      throw Error("Missing or invalid configuration parameters: " + this._config_errors.toString())
+      throw Error("Missing or invalid configuration parameters: " + this._validation_errors.toString())
     }
   },
     /**
@@ -131,7 +171,7 @@ module.exports = function (options) {
      * @return {object} Promise
      */
     this.query  = async function (query_data) {
-      if (this._withValidConfig()){
+      if (this._isValidated('query', query_data)){
         request = {
           method: "get",
           url:
@@ -157,7 +197,7 @@ module.exports = function (options) {
             });
         });
       } else {
-        throw Error("Missing or invalid configuration parameters: " + this._config_errors.toString())
+        throw Error("Missing or invalid configuration parameters: " + this._validation_errors.toString())
       }
     };
 
@@ -169,7 +209,7 @@ module.exports = function (options) {
    * @return {object} Promise
    */
   this.reverse = function (transaction_data) {
-    if (this._withValidConfig()) {
+    if (this._isValidated('reversal', transaction_data)) {
       request = {
         method: "put",
         url: "https://" + this._api_host + ":18354/ipg/v1x/reversal/",
@@ -196,7 +236,16 @@ module.exports = function (options) {
           });
       });
     } else {
-      throw Error("Missing or invalid configuration parameters: " + this._config_errors.toString())
+      throw Error("Missing or invalid configuration parameters: " + this._validation_errors.toString())
     }  
   };
+
+  if (this._isValidated('config', {}))
+    this._request_headers = {      
+      "Content-Type": "application/json",
+      Origin: this._origin,
+      Authorization: this._getBearerToken(),
+    }
+  else
+    throw Error("Missing or invalid configuration parameters: " + this._validation_errors.toString())
 }
