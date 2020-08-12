@@ -12,8 +12,8 @@ Initially, a port of [mpesa-php-api](https://github.com/abdulmueid/mpesa-php-api
 
 - Simple syntax
 - Promise-based
-- Agnostic-library by treating config and transaction details as data, rather than dependencies
-- With request data validation to ensure only valid requests get sent to the MPesa API
+- Agnostic library. Treats config and transaction details as data, rather than dependencies
+- Validation of transaction parameters to ensure only valid requests get sent to the MPesa API
 
 ## Status
 
