@@ -131,9 +131,78 @@ If any parameter is non-existent, empty or invalid, the library throws the error
 
 The names of the missing or invalid parameters are also appended to the error message.
 
+Example
+
+```js
+Transaction = require("mpesa-mz-nodejs-lib");
+
+// create the config object, missing api_host
+let config = {
+  public_key: "<Public key>",
+  api_key: "<API key>",
+  origin: "<Origin>",
+  service_provider_code: "<Service provider code>",
+  initiator_identifier: "<Initiator Identifier>",
+  security_credential: "<Security Credential>",
+};
+
+// instantiate the Transaction object, initializing it with valid config
+transaction = new Transaction(config);
+```
+
+Will throw: `Error: Missing or invalid Configuration parameter: API Host`
+
+```js
+Transaction = require('mpesa-mz-nodejs-lib')
+
+// create the config object, missing api_host
+let config = {
+    public_key: '<Public key>',
+    api_host: '<API host>',
+    api_key: '<API key>',
+    origin: '<Origin>',
+    service_provider_code: '<Service provider code>',
+    initiator_identifier: '<Initiator Identifier>',
+    security_credential: '<Security Credential>'
+}
+
+// instantiate the Transaction object, initializing it with valid config
+transaction = new Transaction(config)
+
+// initiate a C2B transaction, missing reference parameter
+transaction.c2b({
+  amount: <floating-point number>,
+  msisdn: '<valid/invalid MSISDN>',
+  third_party_reference: '<Third-party reference>'
+  })
+  // handle success
+  .then(function(response){
+      console.log(response)
+  })
+  // handle error
+  .catch(function(error){
+      console.log(error)
+  })
+})
+```
+
+Will throw: `Error: Missing or invalid C2B parameter: C2B Reference`
+
 ### Responses
 
-The response format used by the HTTP client library used, ( [Axios](https://github.com/axios/axios) ), is structured as:
+Response format from MPesa API:
+
+```JS
+{
+  output_ResponseCode: 'INS-0',
+  output_ResponseDesc: 'Request processed successfully',
+  output_ResponseTransactionStatus: 'Completed',
+  output_ConversationID: '3b46f68931324acb857ae4fe52b826b5',
+  output_ThirdPartyReference: 'XXXXX'
+}
+```
+
+The response format used by the HTTP client library used, ([Axios](https://github.com/axios/axios)), is structured as:
 
 ```
 {
@@ -145,8 +214,8 @@ The response format used by the HTTP client library used, ( [Axios](https://gith
 }
 ```
 
-In the current version of the library, all returned objects correspond to the `data` property (data returned from MPesa API).
-TODO: Distinguish `response` (full Axios response object) from `response.data` in returned messages according to the environment (dev/prod)
+So, in the current version of the library, all returned objects correspond to the `data` property (data returned from MPesa API).
+Future versions will distinguish `response` (full Axios response object) from `response.data` in returned messages according to the environment (dev/prod)
 
 ## License
 
