@@ -1,8 +1,8 @@
-# mpesa-nodejs-api
+# mpesa-mz-nodejs-lib [Not production-ready]
 
 ![GitHub](https://img.shields.io/github/license/ivanruby/mpesa-nodejs-api)
 
-A Node.js version of the M-Pesa Mozambique API
+A Node.js library for the M-Pesa Mozambique API
 
 Initially, a port of [mpesa-php-api](https://github.com/abdulmueid/mpesa-php-api) to Node.js
 
@@ -16,6 +16,16 @@ Also, be an agnostic-library by treating config and transaction details as data,
 - [x] C2B Transaction
 - [x] Transaction status query
 - [x] Transaction reversal
+
+## Roadmap
+
+- [] Unit tests passing for all features (v0.4.x)
+- [] Code refactoring (entire codebase) (v0.5.x)
+- [] Documentation (code coverage, features) (v0.6.x)
+- [] Linting, code quality (v0.7.x)
+- [] Continuous Integration (v0.8.x)
+- [] Rename library (v0.9.x)
+- [] All tests passing, functionalities stable (v1.0.0)
 
 ## Test
 
@@ -41,11 +51,17 @@ For mac, run `npm run docs:mac`
 
 ## Examples
 
+### Installation
+
+```
+npm install mpesa-mz-nodejs-lib
+```
+
 ### Customer to Business (C2B) transaction
 
 ```javascript
 // include the library
-Transaction = require('mpesa-nodejs-api')
+Transaction = require('mpesa-mz-nodejs-lib')
 
 // create the config object
 let config = {
@@ -63,19 +79,19 @@ transaction = new Transaction(config)
 
 // initiate a promise-based C2B transaction
 transaction.c2b({
-        amount: <floating-point number>,
-        msisdn: '<valid/invalid MSISDN>',
-        reference: '<Transaction Reference>',
-        third_party_reference: '<Third-party reference>'
-        })
-    // handle success
-    .then(function(response){
-        console.log(response)
-    })
-    // handle error
-    .catch(function(error){
-        console.log(error)
-    })
+  amount: <floating-point number>,
+  msisdn: '<valid/invalid MSISDN>',
+  reference: '<Transaction Reference>',
+  third_party_reference: '<Third-party reference>'
+  })
+  // handle success
+  .then(function(response){
+      console.log(response)
+  })
+  // handle error
+  .catch(function(error){
+      console.log(error)
+  })
 ```
 
 ### Querying status of an existing transaction
@@ -86,7 +102,7 @@ transaction.c2b({
 // query the status of an existing transaction
 transaction
   .query({
-    reference: "<Transaction reference>",
+    query_reference: "<Transaction reference>",
     third_party_reference: "<Third-party reference>",
   })
   // handle success
@@ -121,9 +137,22 @@ transaction
   });
 ```
 
-In the current version, all returned objects correspond to the `response.data` property.
+### Responses
 
-Future versions will distinguish `response` from `response.data` in returned messages according to the environment (dev/prod)
+Axios response object schema is structured as:
+
+```
+{
+  status: '',
+  statusText: '',
+  headers: {},
+  config: {},
+  data: {}
+}
+```
+
+In the current version of the library, all returned objects correspond to the entire `data` object.
+TODO: Distinguish `response` (full Axios response object) from `response.data` (data returned from MPesa API) in returned messages according to the environment (dev/prod)
 
 ## License
 
