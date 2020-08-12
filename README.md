@@ -1,4 +1,4 @@
-# mpesa-mz-nodejs-lib
+# mpesa-mz-nodejs-lib [Not production-ready]
 
 ![GitHub](https://img.shields.io/github/license/ivanruby/mpesa-nodejs-api)
 
@@ -19,10 +19,13 @@ Also, be an agnostic-library by treating config and transaction details as data,
 
 ## Roadmap
 
-- Unit tests (v0.4.x)
-- Code refactoring (entire codebase) (v0.5.x)
-- Documentation (dist + dist.min) (v0.6.x)
-- All tests passing, functionalities stable (v1.0.0)
+- [] Unit tests passing for all features (v0.4.x)
+- [] Code refactoring (entire codebase) (v0.5.x)
+- [] Documentation (code coverage, features) (v0.6.x)
+- [] Linting, code quality (v0.7.x)
+- [] Continuous Integration (v0.8.x)
+- [] Rename library (v0.9.x)
+- [] All tests passing, functionalities stable (v1.0.0)
 
 ## Test
 
@@ -134,9 +137,22 @@ transaction
   });
 ```
 
-In the current version, all returned objects correspond to the entire `response` object.
+### Responses
 
-Future versions will distinguish `response` from `response.data` in returned messages according to the environment (dev/prod)
+Axios response object schema is structured as:
+
+```
+{
+  status: '',
+  statusText: '',
+  headers: {},
+  config: {},
+  data: {}
+}
+```
+
+In the current version of the library, all returned objects correspond to the entire `data` object.
+TODO: Distinguish `response` (full Axios response object) from `response.data` (data returned from MPesa API) in returned messages according to the environment (dev/prod)
 
 ## License
 
