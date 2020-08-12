@@ -127,7 +127,7 @@ The parameters for the initialization of the Transaction object as well as for t
 
 If any parameter is non-existent, empty or invalid, the library throws the error:
 
-`Error: Missing or invalid Config/C2B/Query/Reversal parameters`
+`Missing or invalid Config/C2B/Query/Reversal parameter`
 
 The names of the missing or invalid parameters are also appended to the error message.
 
@@ -150,7 +150,9 @@ let config = {
 transaction = new Transaction(config);
 ```
 
-Will throw: `Error: Missing or invalid Configuration parameter: API Host`
+Will throw a `Missing or invalid Configuration parameter: API Host` error
+
+And
 
 ```js
 Transaction = require('mpesa-mz-nodejs-lib')
@@ -186,7 +188,7 @@ transaction.c2b({
 })
 ```
 
-Will throw: `Error: Missing or invalid C2B parameter: C2B Reference`
+Will throw a `Missing or invalid C2B parameter: C2B Reference` error
 
 ### Responses
 
