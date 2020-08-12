@@ -1,5 +1,7 @@
 # mpesa-mz-nodejs-lib [Stable but not production-ready]
 
+![Github](https://img.shields.io/github/package-json/v/ivanruby/mpesa-mz-nodejs-lib)
+![Github](https://img.shields.io/npm/v/mpesa-mz-nodejs-lib)
 ![GitHub](https://img.shields.io/github/license/ivanruby/mpesa-nodejs-api)
 
 A Node.js library for the M-Pesa Mozambique API
