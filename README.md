@@ -121,9 +121,13 @@ transaction
 
 ### Error-handling
 
-The parameters for the initializing the transaction object as well as for the `c2b`, `query` and `reversal` methods are validated by the library.
+The parameters for the initialization of the Transaction object as well as for the `c2b`, `query` and `reversal` methods are validated by the library.
 
-If any required parameter is non-existent, empty or invalid, the library throws an `Error: Missing or invalid Config/C2B/Query/Reversal parameters` error. It also appends the names of the missing or invalid parameters.
+If any parameter is non-existent, empty or invalid, the library throws the error:
+
+`Error: Missing or invalid Config/C2B/Query/Reversal parameters`
+
+The names of the missing or invalid parameters are also appended to the error message.
 
 ### Responses
 
