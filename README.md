@@ -1,4 +1,4 @@
-# mpesa-mz-nodejs-lib [Not production-ready]
+# mpesa-mz-nodejs-lib [Stable but not production-ready]
 
 ![GitHub](https://img.shields.io/github/license/ivanruby/mpesa-nodejs-api)
 
@@ -6,10 +6,12 @@ A Node.js library for the M-Pesa Mozambique API
 
 Initially, a port of [mpesa-php-api](https://github.com/abdulmueid/mpesa-php-api) to Node.js
 
-## Goals
+## Features
 
-Provide a straightforward, Promise-based implementation of the M-Pesa API in Node.js.
-Also, be an agnostic-library by treating config and transaction details as data, rather than dependencies
+- Simple syntax
+- Promise-based
+- Agnostic-library by treating config and transaction details as data, rather than dependencies
+- With request data validation to ensure only valid requests get sent to the MPesa API
 
 ## Status
 
@@ -19,43 +21,23 @@ Also, be an agnostic-library by treating config and transaction details as data,
 
 ## Roadmap
 
-- [] Unit tests passing for all features (v0.4.x)
-- [] Code refactoring (entire codebase) (v0.5.x)
-- [] Documentation (code coverage, features) (v0.6.x)
-- [] Linting, code quality (v0.7.x)
-- [] Continuous Integration (v0.8.x)
-- [] Rename library (v0.9.x)
-- [] All tests passing, functionalities stable (v1.0.0)
+- [ ] Unit tests passing for all features (v0.4.x)
+- [ ] Code refactoring (entire codebase) (v0.5.x)
+- [ ] Documentation (code coverage, features) (v0.6.x)
+- [ ] Linting, code quality (v0.7.x)
+- [ ] Continuous Integration (v0.8.x)
+- [ ] Rename library (v0.9.x)
+- [ ] All tests passing, functionalities stable (v1.0.0)
 
-## Test
-
-```
-git clone https://github.com/ivanruby/mpesa-mz-nodejs-lib.git
-cd mpesa-mz-nodejs-lib
-npm install
-```
-
-Rename `example.env` to `.env` and populate the fields with the necessary values.
-
-Next, run
-
-`npm test`
-
-## Documentation (Windows)
-
-```
-npm run docs
-```
-
-For mac, run `npm run docs:mac`
-
-## Examples
-
-### Installation
+## Installation
 
 ```
 npm install mpesa-mz-nodejs-lib
 ```
+
+## Examples
+
+All parameters used in the examples correspond to the parameters required by the MPesa API. See the documentation on the [MPesa Developer Portal](https://developer.mpesa.vm.co.mz/) for more information.
 
 ### Customer to Business (C2B) transaction
 
@@ -136,6 +118,12 @@ transaction
     console.log(error);
   });
 ```
+
+### Error-handling
+
+The parameters for the initializing the transaction object as well as for the `c2b`, `query` and `reversal` methods are validated by the library.
+
+If any required parameter is non-existent, empty or invalid, the library throws an `Error: Missing or invalid Config/C2B/Query/Reversal parameters` error. It also appends the names of the missing or invalid parameters.
 
 ### Responses
 
