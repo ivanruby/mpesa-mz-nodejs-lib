@@ -22,8 +22,9 @@ module.exports = function (options) {
   this._initiator_identifier = options.initiator_identifier || '',
   this._security_credential = options.security_credential || '',
   
-  this._validMSISDN = '';
+  this._validMSISDN;
   this._isValidMSISDN = function(msisdn){
+    this._validMSISDN = '';
     isValid = false;
 
     // Is it a number?
