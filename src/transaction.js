@@ -145,7 +145,7 @@ module.exports = function (options) {
       // Return formatted string, Bearer token in base64 format
       return "Bearer " + Buffer.from(token).toString("base64");
     } else {
-      throw Error("Missing or invalid configuration parameters: " + this.validation_errors.toString())
+      throw Error("Missing or invalid configuration parameters:" + this.validation_errors.toString())
     }
   };
 
@@ -189,7 +189,7 @@ module.exports = function (options) {
           });
       });
     } else {
-      throw Error("Missing or invalid C2B parameters: " + this.validation_errors.toString())
+      throw Error("Missing or invalid C2B parameters:" + this.validation_errors.toString())
     }
   },
     /**
@@ -218,14 +218,14 @@ module.exports = function (options) {
         return await new Promise(function (resolve, reject) {
           axios(request)
             .then(function (response) {
-              resolve(response.data);
+              resolve(response);
             })
             .catch(function (error) {
-              reject(error.data);
+              reject(error);
             });
         });
       } else {
-        throw Error("Missing or invalid Query parameters: " + this.validation_errors.toString())
+        throw Error("Missing or invalid Query parameters:" + this.validation_errors.toString())
       }
     };
 
@@ -264,7 +264,7 @@ module.exports = function (options) {
           });
       });
     } else {
-      throw Error("Missing or invalid Reversal parameters: " + this.validation_errors.toString())
+      throw Error("Missing or invalid Reversal parameters:" + this.validation_errors.toString())
     }  
   };
 
@@ -275,5 +275,5 @@ module.exports = function (options) {
       Authorization: this._getBearerToken(),
     }
   else
-    throw Error("Missing or invalid configuration parameters: " + this.validation_errors.toString())
+    throw Error("Missing or invalid configuration parameters:" + this.validation_errors.toString())
 }
