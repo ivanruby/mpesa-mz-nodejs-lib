@@ -1,11 +1,13 @@
 assert = require('assert');
-module.exports = function(){
+require('dotenv').config()
+
+module.exports = function(Tx){
     describe('Config', function () {
         it('Should not initialize if config object is incomplete or non-valid', function(){
             init = function(){
                 tx = new Tx({})
             }
-            assert.throws(init, Error, /Missing or invalid/)
+            assert.throws(init, Error, /Missing or invalid configuration parameters/)
         })
 
         it('API Host: should be present and non-empty', function () {

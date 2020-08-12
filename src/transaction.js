@@ -189,7 +189,7 @@ module.exports = function (options) {
           });
       });
     } else {
-      throw Error("Missing or invalid configuration parameters: " + this.validation_errors.toString())
+      throw Error("Missing or invalid C2B parameters: " + this.validation_errors.toString())
     }
   },
     /**
@@ -225,7 +225,7 @@ module.exports = function (options) {
             });
         });
       } else {
-        throw Error("Missing or invalid configuration parameters: " + this.validation_errors.toString())
+        throw Error("Missing or invalid Query parameters: " + this.validation_errors.toString())
       }
     };
 
@@ -264,7 +264,7 @@ module.exports = function (options) {
           });
       });
     } else {
-      throw Error("Missing or invalid configuration parameters: " + this.validation_errors.toString())
+      throw Error("Missing or invalid Reversal parameters: " + this.validation_errors.toString())
     }  
   };
 

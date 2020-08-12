@@ -1,28 +1,20 @@
 assert = require('assert');
-module.exports = function() {
-    describe('C2B', function(){
-        tx = {};
+require('dotenv').config()
 
-        before(function(){
-            tx = new Tx({
-                public_key: process.env.PUBLIC_KEY,
-                api_host: process.env.API_HOST,
-                api_key: process.env.API_KEY,
-                origin: process.env.ORIGIN,
-                service_provider_code: process.env.SERVICE_PROVIDER_CODE,
-                initiator_identifier: process.env.INITIATOR_IDENTIFIER,
-                security_credential: process.env.SECURITY_CREDENTIAL
-            })
-        })
-        
-        purchase = {
-            amount: process.env.TEST_AMOUNT,
-            msisdn: process.env.TEST_MSISDN,
-            reference: process.env.TEST_REFERENCE,
-            third_party_reference: process.env.TEST_THIRD_PARTY_REFERENCE
-        }
+module.exports = function(Tx) {
+    // Initialize transaction object
+    tx = Tx({
+        public_key: process.env.PUBLIC_KEY,
+        api_host: process.env.API_HOST,
+        api_key: process.env.API_KEY,
+        origin: process.env.ORIGIN,
+        service_provider_code: process.env.SERVICE_PROVIDER_CODE,
+        initiator_identifier: process.env.INITIATOR_IDENTIFIER,
+        security_credential: process.env.SECURITY_CREDENTIAL
+    })
 
-        it ('Should not initialize if transaction data object is incomplete or invalid', function(){
+    describe('C2B', function(){        
+        it('Should not initialize if transaction data object is incomplete or invalid', function(){
             init = function(){
                 tx.c2b({})
             }
@@ -42,7 +34,7 @@ module.exports = function() {
                 assert.throws(init, Error, /Missing or invalid configuration parameters:  C2B Amount/)
             })
             
-            it('Should be present and a valid number', function(){
+            it('Should be a valid number', function(){
                 init = function() {
                     tx.c2b({
                         amount: 'a1.5',
@@ -55,7 +47,7 @@ module.exports = function() {
                 assert.throws(init, Error, /Missing or invalid configuration parameters:  C2B Amount/)
             })
 
-            it('Should be a valid number greater than zero', function(){
+            it('Should be greater than zero', function(){
                 init = function() {
                     tx.c2b({
                         amount: '-1',
@@ -84,13 +76,25 @@ module.exports = function() {
         })
 
         it('Reference: should not be empty', function(){
-            assert.notEqual(purchase.reference, undefined)
-            assert.notEqual(purchase.reference, '')
+            init = function() {
+                tx.c2b({
+                    amount: process.env.TEST_AMOUNT,
+                    msisdn: '841234567',
+                    third_party_reference: process.env.TEST_THIRD_PARTY_REFERENCE
+                })
+            }
+            assert.throws(init, Error, /Missing or invalid configuration parameters: C2B Reference/)
         })
 
         it('Third-party reference: should not be empty', function(){
-            assert.notEqual(purchase.third_party_reference, undefined)
-            assert.notEqual(purchase.third_party_reference, '')
+            init = function() {
+                tx.c2b({
+                    amount: process.env.TEST_AMOUNT,
+                    msisdn: '841234567',
+                    third_party_reference: process.env.TEST_THIRD_PARTY_REFERENCE
+                })
+            }
+            assert.throws(init, Error, /Missing or invalid configuration parameters: C2B 3rd-Party reference/)
         })
     })
 }
