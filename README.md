@@ -76,19 +76,19 @@ transaction = new Transaction(config)
 
 // initiate a promise-based C2B transaction
 transaction.c2b({
-        amount: <floating-point number>,
-        msisdn: '<valid/invalid MSISDN>',
-        reference: '<Transaction Reference>',
-        third_party_reference: '<Third-party reference>'
-        })
-    // handle success
-    .then(function(response){
-        console.log(response)
-    })
-    // handle error
-    .catch(function(error){
-        console.log(error)
-    })
+  amount: <floating-point number>,
+  msisdn: '<valid/invalid MSISDN>',
+  reference: '<Transaction Reference>',
+  third_party_reference: '<Third-party reference>'
+  })
+  // handle success
+  .then(function(response){
+      console.log(response)
+  })
+  // handle error
+  .catch(function(error){
+      console.log(error)
+  })
 ```
 
 ### Querying status of an existing transaction
@@ -99,7 +99,7 @@ transaction.c2b({
 // query the status of an existing transaction
 transaction
   .query({
-    reference: "<Transaction reference>",
+    query_reference: "<Transaction reference>",
     third_party_reference: "<Third-party reference>",
   })
   // handle success
@@ -134,7 +134,7 @@ transaction
   });
 ```
 
-In the current version, all returned objects correspond to the `response.data` property.
+In the current version, all returned objects correspond to the entire `response` object.
 
 Future versions will distinguish `response` from `response.data` in returned messages according to the environment (dev/prod)
 

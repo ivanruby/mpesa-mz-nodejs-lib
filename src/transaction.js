@@ -181,11 +181,11 @@ module.exports = function (options) {
 
       return new Promise(function (resolve, reject) {
         axios(request)
-          .then(function (response) {
-            resolve(response);
+          .then(function (data) {
+            resolve(data.response.data);
           })
           .catch(function (error) {
-            reject(error);
+            reject(error.response);
           });
       });
     } else {
@@ -217,11 +217,11 @@ module.exports = function (options) {
         // If all transaction properties exist and are valid, return promise
         return await new Promise(function (resolve, reject) {
           axios(request)
-            .then(function (response) {
-              resolve(response);
+            .then(function (data) {
+              resolve(data.response.data);
             })
             .catch(function (error) {
-              reject(error);
+              reject(error.response);
             });
         });
       } else {
@@ -256,11 +256,11 @@ module.exports = function (options) {
 
       return new Promise(function (resolve, reject) {
         axios(request)
-          .then(function (response) {
-            resolve(response.data);
+          .then(function (data) {
+            resolve(data.response.data);
           })
           .catch(function (error) {
-            reject(error.data);
+            reject(error.response);
           });
       });
     } else {
