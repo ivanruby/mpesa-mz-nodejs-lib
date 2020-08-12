@@ -131,7 +131,7 @@ The names of the missing or invalid parameters are also appended to the error me
 
 ### Responses
 
-Axios response object schema is structured as:
+The response format used by the HTTP client library used, ( [Axios](https://github.com/axios/axios) ), is structured as:
 
 ```
 {
@@ -143,8 +143,8 @@ Axios response object schema is structured as:
 }
 ```
 
-In the current version of the library, all returned objects correspond to the entire `data` object.
-TODO: Distinguish `response` (full Axios response object) from `response.data` (data returned from MPesa API) in returned messages according to the environment (dev/prod)
+In the current version of the library, all returned objects correspond to the `data` property (data returned from MPesa API).
+TODO: Distinguish `response` (full Axios response object) from `response.data` in returned messages according to the environment (dev/prod)
 
 ## License
 
