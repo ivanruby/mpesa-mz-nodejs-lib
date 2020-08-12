@@ -1,6 +1,6 @@
 {
   "name": "mpesa-mz-nodejs-lib",
-  "version": "0.3.12",
+  "version": "0.3.13",
   "description": "A node.js library for the M-Pesa Mozambique API",
   "main": "index.min.js",
   "scripts": {
