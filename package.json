@@ -15,7 +15,11 @@
     "url": "git+https://github.com/ivanruby/mpesa-mz-nodejs-lib.git"
   },
   "keywords": [
+    "node",
+    "payment",
+    "e-commerce",
     "mpesa",
+    "mozambique",
     "api"
   ],
   "author": "Ivan Ruby (https://ivanruby.com)",

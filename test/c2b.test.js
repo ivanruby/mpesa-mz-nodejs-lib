@@ -57,22 +57,37 @@ module.exports = function(Tx) {
                     })
                 }
                 
-                assert.throws(init, Error, /Missing or invalid configuration parameters:  C2B Amount/)
+                assert.throws(init, Error, /Missing or invalid configuration parameters: C2B Amount/)
             })
 
         })
         
-        it('MSISDN: should be present and a valid 9 or 12 digits number', function(){
-            init = function() {
+        it('MSISDN: should be present and a valid 9 or 12 digits number', function(){            
+            assert.throws(function() {
                 tx.c2b({
                     amount: process.env.TEST_AMOUNT,
-                    msisdn: '841234567',
                     reference: process.env.TEST_REFERENCE,
                     third_party_reference: process.env.TEST_THIRD_PARTY_REFERENCE
                 })
-            }
+            }, Error, /Missing or invalid configuration parameters: C2B MSISDN/)
             
-            assert.throws(init, Error, /Missing or invalid configuration parameters:  C2B MSISDN/)
+            assert.throws(function() {
+                tx.c2b({
+                    amount: process.env.TEST_AMOUNT,
+                    msisdn: '0841234567',
+                    reference: process.env.TEST_REFERENCE,
+                    third_party_reference: process.env.TEST_THIRD_PARTY_REFERENCE
+                })
+            }, Error, /Missing or invalid configuration parameters: C2B MSISDN/)
+
+            assert.throws(function() {
+                tx.c2b({
+                    amount: process.env.TEST_AMOUNT,
+                    msisdn: '0258841234567',
+                    reference: process.env.TEST_REFERENCE,
+                    third_party_reference: process.env.TEST_THIRD_PARTY_REFERENCE
+                })
+            }, Error, /Missing or invalid configuration parameters: C2B MSISDN/)
         })
 
         it('Reference: should not be empty', function(){
@@ -90,8 +105,7 @@ module.exports = function(Tx) {
             init = function() {
                 tx.c2b({
                     amount: process.env.TEST_AMOUNT,
-                    msisdn: '841234567',
-                    third_party_reference: process.env.TEST_THIRD_PARTY_REFERENCE
+                    msisdn: '841234567'
                 })
             }
             assert.throws(init, Error, /Missing or invalid configuration parameters: C2B 3rd-Party reference/)

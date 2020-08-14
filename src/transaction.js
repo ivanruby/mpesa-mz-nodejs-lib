@@ -108,13 +108,13 @@ module.exports = function (options) {
         break;
       case 'reversal':
         if ( !data.amount || data.amount === '' || !isNaN(parseFloat(data.amount)) )
-          this.validation_errors.push(' C2B Amount')
+          this.validation_errors.push(' Reversal Amount')
         
         if ( !data.transaction_id || data.transaction_id === '' )
-          this.validation_errors.push(' C2B Transaction ID')
+          this.validation_errors.push(' Reversal Transaction ID')
           
         if ( !data.third_party_reference || data.third_party_reference === '' )
-          this.validation_errors.push(' C2B 3rd-party Reference')
+          this.validation_errors.push(' Reversal 3rd-party Reference')
     }
     
     if (this.validation_errors.length > 0)
@@ -201,7 +201,7 @@ module.exports = function (options) {
      * @param {string} third_party_reference
      * @return {object} Promise
      */
-    this.query  = async function (query_data) {
+    this.query = function (query_data) {
       if (this._isValidated('query', query_data)){
         request = {
           method: "get",
@@ -218,7 +218,7 @@ module.exports = function (options) {
         };
 
         // If all transaction properties exist and are valid, return promise
-        return await new Promise(function (resolve, reject) {
+        return new Promise(function (resolve, reject) {
           axios(request)
             .then(function (response) {
               console.log("Success")
