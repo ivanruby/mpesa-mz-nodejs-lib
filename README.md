@@ -23,7 +23,7 @@ Initially, a port of [mpesa-php-api](https://github.com/abdulmueid/mpesa-php-api
 
 ## Roadmap
 
-- [ ] Unit tests passing for all features (v0.4.x)
+- [x] Unit tests passing for all features (v0.4.x)
 - [ ] Code refactoring (entire codebase) (v0.5.x)
 - [ ] Documentation (code coverage, features) (v0.6.x)
 - [ ] Linting, code quality (v0.7.x)
@@ -63,10 +63,10 @@ transaction = new Transaction(config)
 
 // initiate a promise-based C2B transaction
 transaction.c2b({
-  amount: <floating-point number>,
-  msisdn: '<valid/invalid MSISDN>',
-  reference: '<Transaction Reference>',
-  third_party_reference: '<Third-party reference>'
+    amount: <floating-point number>,
+    msisdn: '<valid/invalid MSISDN>',
+    reference: '<Transaction Reference>',
+    third_party_reference: '<Third-party reference>'
   })
   // handle success
   .then(function(response){
@@ -123,11 +123,11 @@ transaction
 
 ### Error-handling
 
-The parameters for the initialization of the Transaction object as well as for the `c2b`, `query` and `reversal` methods are validated by the library.
+The parameters for the initialization of the `Transaction` object as well as for the `c2b`, `query` and `reversal` methods are validated by the library.
 
 If any parameter is non-existent, empty or invalid, the library throws the error:
 
-`Missing or invalid Config/C2B/Query/Reversal parameter`
+`Missing or invalid Config/C2B/Query/Reversal parameters`
 
 The names of the missing or invalid parameters are also appended to the error message.
 
@@ -146,7 +146,7 @@ let config = {
   security_credential: "<Security Credential>",
 };
 
-// instantiate the Transaction object, initializing it with valid config
+// instantiate the Transaction object, initializing it with incomplete config
 transaction = new Transaction(config);
 ```
 
@@ -168,14 +168,14 @@ let config = {
     security_credential: '<Security Credential>'
 }
 
-// instantiate the Transaction object, initializing it with valid config
+// instantiate the Transaction object, initializing it with incomplete config
 transaction = new Transaction(config)
 
 // initiate a C2B transaction, missing reference parameter
 transaction.c2b({
-  amount: <floating-point number>,
-  msisdn: '<valid/invalid MSISDN>',
-  third_party_reference: '<Third-party reference>'
+    amount: <floating-point number>,
+    msisdn: '<valid/invalid MSISDN>',
+    third_party_reference: '<Third-party reference>'
   })
   // handle success
   .then(function(response){
@@ -204,7 +204,7 @@ Response format from MPesa API:
 }
 ```
 
-The response format used by the HTTP client library used, ([Axios](https://github.com/axios/axios)), is structured as:
+The response format provided by the HTTP client library used, ([Axios](https://github.com/axios/axios)), is structured as:
 
 ```
 {
@@ -216,7 +216,7 @@ The response format used by the HTTP client library used, ([Axios](https://githu
 }
 ```
 
-So, in the current version of the library, all returned objects correspond to the `data` property (data returned from MPesa API).
+In the current version of the library, all returned objects correspond to the `data` property (data returned from MPesa API).
 Future versions will distinguish `response` (full Axios response object) from `response.data` in returned messages according to the environment (dev/prod)
 
 ## License

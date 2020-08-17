@@ -51,7 +51,7 @@ module.exports = function (options) {
     return isValid;
   }
 
-  this.validation_errors = [];
+  this.validation_errors;
   /**
    * Validates all configuration parameters
    * @param {string} type
