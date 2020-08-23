@@ -22,6 +22,7 @@ module.exports = function (options) {
   this._initiator_identifier = options.initiator_identifier || '',
   this._security_credential = options.security_credential || '',
   
+  // MSISDN Validation
   this._validMSISDN;
   this._isValidMSISDN = function(msisdn){
     this._validMSISDN = '';
@@ -194,45 +195,46 @@ module.exports = function (options) {
     } else {
       throw Error("Missing or invalid C2B parameters:" + this.validation_errors.toString())
     }
-  },
-    /**
-     * Initiates a transaction Query on the M-Pesa API.
-     * @param {string} query_reference
-     * @param {string} third_party_reference
-     * @return {object} Promise
-     */
-    this.query = function (query_data) {
-      if (this._isValidated('query', query_data)){
-        request = {
-          method: "get",
-          url:
-            "https://" +
-            this._api_host +
-            ":18353/ipg/v1x/queryTransactionStatus/?input_QueryReference=" +
-            query_data.query_reference +
-            "&input_ServiceProviderCode=" +
-            this._service_provider_code +
-            "&input_ThirdPartyReference=" +
-            query_data.third_party_reference,
-          headers: this._request_headers,
-        };
+  }
+  
+  /**
+   * Initiates a transaction Query on the M-Pesa API.
+   * @param {string} query_reference
+   * @param {string} third_party_reference
+   * @return {object} Promise
+   */
+  this.query = function (query_data) {
+    if (this._isValidated('query', query_data)){
+      request = {
+        method: "get",
+        url:
+          "https://" +
+          this._api_host +
+          ":18353/ipg/v1x/queryTransactionStatus/?input_QueryReference=" +
+          query_data.query_reference +
+          "&input_ServiceProviderCode=" +
+          this._service_provider_code +
+          "&input_ThirdPartyReference=" +
+          query_data.third_party_reference,
+        headers: this._request_headers,
+      };
 
-        // If all transaction properties exist and are valid, return promise
-        return new Promise(function (resolve, reject) {
-          axios(request)
-            .then(function (response) {
-              console.log("Success")
-              resolve(response.data);
-            })
-            .catch(function (error) {
-              console.log("Fail")
-              reject(error.response.data);
-            });
-        });
-      } else {
-        throw Error("Missing or invalid Query parameters:" + this.validation_errors.toString())
-      }
-    };
+      // If all transaction properties exist and are valid, return promise
+      return new Promise(function (resolve, reject) {
+        axios(request)
+          .then(function (response) {
+            console.log("Success")
+            resolve(response.data);
+          })
+          .catch(function (error) {
+            console.log("Fail")
+            reject(error.response.data);
+          });
+      });
+    } else {
+      throw Error("Missing or invalid Query parameters:" + this.validation_errors.toString())
+    }
+  }
 
   /**
    * Initiates a transaction Query on the M-Pesa API.

@@ -13,11 +13,15 @@ module.exports = function(Tx){
     })
 
     describe('Reversal', function(){
-        it('Should not initialize if reversal data object is empty', function(){
+        it('Should not initialize if reversal data object is empty or invalid', function(){
+            assert.throws(function() {
+                tx.reversal()
+            }, Error, /Missing or invalid Reversal parameters/)
+               
             assert.throws(function() {
                 tx.reversal({})
             }, Error, /Missing or invalid Reversal parameters/)
-        })
+        })    
 
         it('Amount: should be present, non-empty and greater than zero', function () {
             assert.throws(function() {
@@ -54,7 +58,7 @@ module.exports = function(Tx){
 
             assert.throws(function() {
                 tx.reversal({
-                    amount: '',          
+                    amount: '1',          
                     transaction_id: '',
                     third_party_reference: process.env.TEST_THIRD_PARTY_REFERENCE
                 })
@@ -77,7 +81,6 @@ module.exports = function(Tx){
                 })
             }, Error, /Missing or invalid Reversal parameters: Reversal 3rd-Party Reference/ )
         });
-
 
     // let transaction_to_reverse = {
     //     amount: process.env.TEST_AMOUNT,
