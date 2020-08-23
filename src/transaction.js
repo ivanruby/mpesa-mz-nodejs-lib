@@ -10,10 +10,15 @@ NodeRSA = require("node-rsa");
 
 /**
  * MPesa Transaction class
- * @constructor 
+ * @constructor
+ * @param {object} options
+ * @return Transaction
  */
 module.exports = function (options) {
-  // Configuration variables
+  /**
+   * Configuration variables
+   * 
+   **/ 
   this._public_key = options.public_key || '',
   this._api_host = options.api_host || '',
   this._api_key = options.api_key || '',
@@ -22,8 +27,16 @@ module.exports = function (options) {
   this._initiator_identifier = options.initiator_identifier || '',
   this._security_credential = options.security_credential || '',
   
-  // MSISDN Validation
+  /**
+   * MSISDN Validation
+   */
   this._validMSISDN;
+
+  /**
+   * Validates a customer's MSISDN (Phone number)
+   * @param {string} msisdn
+   * @return {boolean} isValid
+   */
   this._isValidMSISDN = function(msisdn){
     this._validMSISDN = '';
     isValid = false;
@@ -33,16 +46,16 @@ module.exports = function (options) {
       // Is the length 12 and starts with 258?
       if ( msisdn.length == 12 && msisdn.substring(0, 3) == '258' ) {
         buffer = msisdn.substring(3,5)
-        // Is it an 84, 85 or 86 number?
-        if (buffer == '84' || buffer == '85' || buffer == '86') {
+        // Is it an 84 or 85 number?
+        if (buffer == '84' || buffer == '85') {
           this._validMSISDN = msisdn;
           isValid = true;
         }
       // Otherwise, is the length 9?
       } else if (msisdn.length == 9) {
           buffer = msisdn.substring(0,2)
-          // Is it an 84, 85 or 86 number?
-          if (buffer == '84' || buffer == '85' || buffer == '86') {
+          // Is it an 84 or 85 number?
+          if (buffer == '84' || buffer == '85') {
             this._validMSISDN = '258' + msisdn;
             isValid = true;
           }        
@@ -52,7 +65,11 @@ module.exports = function (options) {
     return isValid;
   }
 
+  /**
+   * Validation buffer
+   */
   this.validation_errors;
+
   /**
    * Validates all configuration parameters
    * @param {string} type
@@ -277,6 +294,9 @@ module.exports = function (options) {
     }  
   };
 
+  /**
+   * Validate config data and throw Errors if any is incomplete or invalid
+   */
   if (this._isValidated('config', {}))
     this._request_headers = {      
       "Content-Type": "application/json",
