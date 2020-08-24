@@ -2,6 +2,7 @@ assert = require('assert');
 require('dotenv').config()
 
 module.exports = function(Tx){
+    /** @test {Transaction#Config} */
     describe('Config', function () {
         it('Should not initialize if config object is incomplete or non-valid', function(){
             assert.throws(function(){

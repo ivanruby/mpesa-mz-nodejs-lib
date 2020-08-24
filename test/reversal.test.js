@@ -12,6 +12,7 @@ module.exports = function(Tx){
         security_credential: process.env.SECURITY_CREDENTIAL
     })
 
+    /** @test {Transaction#Reversal} */
     describe('Reversal', function(){
         it('Should not initialize if reversal data object is empty or invalid', function(){
             assert.throws(function() {

@@ -40,14 +40,5 @@
     "eslint-config-prettier": "^6.11.0",
     "mocha": "^8.1.1",
     "uglify-es": "^3.3.9"
-  },
-  "esdoc": {
-    "source": "./src",
-    "destination": "./docs",
-    "plugins": [
-      {
-        "name": "esdoc-standard-plugin"
-      }
-    ]
   }
 }

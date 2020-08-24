@@ -12,7 +12,7 @@ module.exports = function(Tx) {
         initiator_identifier: process.env.INITIATOR_IDENTIFIER,
         security_credential: process.env.SECURITY_CREDENTIAL
     })
-
+    /** @test {Transaction#C2B} */
     describe('C2B', function(){        
         it('Should not initialize if transaction data object is incomplete or invalid', function(){
             assert.throws(function(){

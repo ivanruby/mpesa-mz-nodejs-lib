@@ -12,6 +12,7 @@ module.exports = function(Tx){
         security_credential: process.env.SECURITY_CREDENTIAL
     })
 
+    /** @test {Transaction#Query} */
     describe('Query', function(){
         it('Should not initialize if query data object is empty', function(){
             assert.throws(function() {
