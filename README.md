@@ -220,6 +220,12 @@ The response format provided by the HTTP client library used, ([Axios](https://g
 In the current version of the library, all returned objects correspond to the `data` property (data returned from MPesa API).
 Future versions will distinguish `response` (full Axios response object) from `response.data` in returned messages according to the environment (dev/prod)
 
+## Issue templates
+
+[Bug report](https://github.com/ivanruby/mpesa-mz-nodejs-lib/blob/master/.github/ISSUE_TEMPLATE/bug_report.md)
+
+[Feature request](https://github.com/ivanruby/mpesa-mz-nodejs-lib/blob/master/.github/ISSUE_TEMPLATE/feature_request.md)
+
 ## License
 
 [MIT License](LICENSE) &copy; 2020 Ivan Ruby
