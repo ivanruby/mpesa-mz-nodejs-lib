@@ -7,6 +7,9 @@ src
 test
 example.env
 package-lock.json
-esdoc.json
+.esdoc.json
+.eslintrc.js
+.travis.yml
+.gitignore
 index.js.map
 LICENSE
