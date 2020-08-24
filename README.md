@@ -25,9 +25,9 @@ Initially, a port of [mpesa-php-api](https://github.com/abdulmueid/mpesa-php-api
 ## Roadmap
 
 - [x] Unit tests passing for all features (v0.4.x)
-- [x] Code refactoring (entire codebase) (v0.5.x)
-- [ ] Continuous Integration (v0.6.x)
-- [ ] Documentation (code coverage, features) (v0.7.x)
+- [x] Continuous Integration (v0.5.x)
+- [ ] Documentation (code coverage, features) (v0.6.x)
+- [ ] Code refactoring (entire codebase) (v0.7.x)
 - [ ] Linting, code quality (v0.8.x)
 - [ ] Rename library (v0.9.x)
 - [ ] All tests passing, functionalities stable (v1.0.0)
