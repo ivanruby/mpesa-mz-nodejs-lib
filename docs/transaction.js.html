@@ -496,6 +496,7 @@ module.exports = function (options) {
 				headers: this.request_headers,
 			};
 
+			
 			return new Promise(function (resolve, reject) {
 				axios(request)
 					.then(function (response) {
