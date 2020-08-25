@@ -1,4 +1,5 @@
 .env
+.github
 .vscode
 node_modules
 docs
@@ -7,8 +8,7 @@ src
 test
 example.env
 package-lock.json
-.esdoc.json
-.eslintrc.js
+.jsdoc.json
 .travis.yml
 .gitignore
 index.js.map
