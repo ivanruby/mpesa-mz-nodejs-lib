@@ -9,18 +9,19 @@ axios = require('axios');
 NodeRSA = require('node-rsa');
 
 /**
- * MPesa Transaction class
- * @constructor
+ * MPesa Transaction module
+ * 
+ * @module Transaction 
  * @param {object} options
- * @return Transaction
+ * @return {Class} Transaction
  */
 module.exports = function (options) {
-	/**
-   * Configuration variables
-   * 
-   **/ 
+	/** Public key */
 	this._public_key = options.public_key || '',
+
+	/** API Host */
 	this._api_host = options.api_host || '',
+
 	this._api_key = options.api_key || '',
 	this._origin = options.origin || '',
 	this._service_provider_code = options.service_provider_code || '',
@@ -34,6 +35,8 @@ module.exports = function (options) {
 
 	/**
    * Validates a customer's MSISDN (Phone number)
+   * 
+   * @name {Transaction#_isValidMSISDN}
    * @param {string} msisdn
    * @return {boolean} isValid
    */
@@ -72,6 +75,8 @@ module.exports = function (options) {
 
 	/**
    * Validates all configuration parameters
+   * 
+   * @name Transaction#_isValidated
    * @param {string} type
    * @param {object} data
    * @return {boolean}
@@ -143,6 +148,7 @@ module.exports = function (options) {
 
 	/**
    * Generates a Bearer Token
+   * 
    * @return {string} bearer_token
    */
 	this._getBearerToken = function () {
@@ -175,6 +181,7 @@ module.exports = function (options) {
 
 	/**
    * Initiates a C2B transaction on the M-Pesa API.
+   * 
    * @param {float} $amount
    * @param {string} $msisdn
    * @param {string} $reference
@@ -216,6 +223,7 @@ module.exports = function (options) {
   
 	/**
    * Initiates a transaction Query on the M-Pesa API.
+   * 
    * @param {string} query_reference
    * @param {string} third_party_reference
    * @return {object} Promise
@@ -254,7 +262,8 @@ module.exports = function (options) {
 	};
 
 	/**
-   * Initiates a transaction Query on the M-Pesa API.
+   * Initiates a transaction Reversal on the M-Pesa API
+   * 
    * @param {number} amount
    * @param {string} transaction_id
    * @param {string} third_party_reference
