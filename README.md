@@ -1,4 +1,4 @@
-# mpesa-mz-nodejs-lib [Stable but not production-ready]
+# mpesa-mz-nodejs-lib
 
 ![Github](https://img.shields.io/github/package-json/v/ivanruby/mpesa-mz-nodejs-lib)
 ![Github](https://img.shields.io/npm/v/mpesa-mz-nodejs-lib)
@@ -8,6 +8,10 @@
 A Node.js library for the M-Pesa Mozambique API
 
 Initially, a port of [mpesa-php-api](https://github.com/abdulmueid/mpesa-php-api) to Node.js
+
+## Version
+
+Currently in beta version. Stable but not production-ready (v1.0.0)
 
 ## Features
 
@@ -26,7 +30,7 @@ Initially, a port of [mpesa-php-api](https://github.com/abdulmueid/mpesa-php-api
 
 - [x] Unit tests passing for all features (v0.4.x)
 - [x] Continuous Integration (v0.5.x)
-- [ ] Documentation (code coverage, features) (v0.6.x)
+- [x] Documentation (code coverage, features) (v0.6.x)
 - [ ] Code refactoring (entire codebase) (v0.7.x)
 - [ ] Linting, code quality (v0.8.x)
 - [ ] Rename library (v0.9.x)
