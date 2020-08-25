@@ -164,7 +164,8 @@ module.exports = function (options) {
 
         break
       case 'reversal':
-        if (!data.amount || data.amount === '' || !isNaN(parseFloat(data.amount))) { this.validation_errors.push(' Reversal Amount') }
+        console.log(data)
+        if (!data.amount || data.amount === '' || isNaN(parseFloat(data.amount))) { this.validation_errors.push(' Reversal Amount') }
 
         if (!data.transaction_id || data.transaction_id === '') { this.validation_errors.push(' Reversal Transaction ID') }
 
@@ -334,7 +335,7 @@ module.exports = function (options) {
    * @param {object} transaction_data
    * @param {number} [transaction_data.amount]
    * @param {string} transaction_data.transaction_id
-   * @param {string} transacton_data.third_party_reference
+   * @param {string} transaction_data.third_party_reference
    * @throws 'Missing or invalid Reversal parameters' Error if params are missing or invalid
    * @example
    * Transaction = require('mpesa-mz-nodejs-lib')
@@ -368,7 +369,7 @@ module.exports = function (options) {
           input_InitiatorIdentifier: this._initiator_identifier,
           input_SecurityCredential: this._security_credential
         },
-        headers: this.request_headers
+        headers: this._request_headers
       }
 
       return new Promise(function (resolve, reject) {

@@ -25,7 +25,7 @@ module.exports = function (Tx) {
           initiator_identifier: process.env.INITIATOR_IDENTIFIER,
           security_credential: process.env.SECURITY_CREDENTIAL
         })
-      }, Error, /Missing or invalid configuration parameters: {2}API Host/)
+      }, Error, /Missing or invalid configuration parameters: API Host/)
 
       assert.doesNotThrow(function () {
         tx = new Tx({
@@ -37,7 +37,7 @@ module.exports = function (Tx) {
           initiator_identifier: process.env.INITIATOR_IDENTIFIER,
           security_credential: process.env.SECURITY_CREDENTIAL
         })
-      }, Error, /Missing or invalid configuration parameters: {2}API Host/)
+      }, Error, /Missing or invalid configuration parameters: API Host/)
     })
 
     it('API Key: should be present and non-empty', function () {
@@ -50,7 +50,7 @@ module.exports = function (Tx) {
           initiator_identifier: process.env.INITIATOR_IDENTIFIER,
           security_credential: process.env.SECURITY_CREDENTIAL
         })
-      }, Error, /Missing or invalid configuration parameters: {2}API Key/)
+      }, Error, /Missing or invalid configuration parameters: API Key/)
     })
 
     it('Public Key: should be present and non-empty', function () {
@@ -63,7 +63,7 @@ module.exports = function (Tx) {
           initiator_identifier: process.env.INITIATOR_IDENTIFIER,
           security_credential: process.env.SECURITY_CREDENTIAL
         })
-      }, Error, /Missing or invalid configuration parameters: {2}Public Key/)
+      }, Error, /Missing or invalid configuration parameters: Public Key/)
     })
 
     it('Origin: should be present and non-empty', function () {
@@ -76,7 +76,7 @@ module.exports = function (Tx) {
           initiator_identifier: process.env.INITIATOR_IDENTIFIER,
           security_credential: process.env.SECURITY_CREDENTIAL
         })
-      }, Error, /Missing or invalid configuration parameters: {2}Origin/)
+      }, Error, /Missing or invalid configuration parameters: Origin/)
     })
 
     it('Service Provider Code: should be present and non-empty', function () {
@@ -89,7 +89,7 @@ module.exports = function (Tx) {
           initiator_identifier: process.env.INITIATOR_IDENTIFIER,
           security_credential: process.env.SECURITY_CREDENTIAL
         })
-      }, Error, /Missing or invalid configuration parameters: {2}Service Provider Code/)
+      }, Error, /Missing or invalid configuration parameters: Service Provider Code/)
     })
 
     it('Initiator Identifier: should be present and non-empty', function () {
@@ -102,7 +102,7 @@ module.exports = function (Tx) {
           service_provider_code: process.env.SERVICE_PROVIDER_CODE,
           security_credential: process.env.SECURITY_CREDENTIAL
         })
-      }, Error, /Missing or invalid configuration parameters: {2}Initiator Identifier/)
+      }, Error, /Missing or invalid configuration parameters: Initiator Identifier/)
     })
 
     it('Security Credential: should be present and non-empty', function () {
@@ -115,7 +115,7 @@ module.exports = function (Tx) {
           service_provider_code: process.env.SERVICE_PROVIDER_CODE,
           initiator_identifier: process.env.INITIATOR_IDENTIFIER
         })
-      }, Error, /Missing or invalid configuration parameters: {2}Security Credential/)
+      }, Error, /Missing or invalid configuration parameters: Security Credential/)
     })
   })
 }
