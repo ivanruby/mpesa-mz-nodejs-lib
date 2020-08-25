@@ -8,6 +8,7 @@
     "build": "npx uglifyjs src/transaction.js --compress --mangle --comments --source-map -o index.js",
     "precommit": "npm run build && git add .",
     "commit": "git commit",
+    "postcommit": "npm version patch",
     "docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose -d docs && start ./docs/index.html",
     "docs:mac": "npx esdoc && open ./docs/index.html",
     "release": "np"
