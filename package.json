@@ -39,6 +39,7 @@
     "dotenv": "^8.2.0",
     "jsdoc": "^3.6.5",
     "mocha": "^8.1.1",
+    "npm-version": "^1.1.0",
     "uglify-es": "^3.3.9"
   }
 }
