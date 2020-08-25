@@ -4,6 +4,7 @@
   "description": "A node.js library for the M-Pesa Mozambique API",
   "main": "index.min.js",
   "scripts": {
+    "pretest": "npx standard src/transaction.js --fix",
     "test": "npx mocha",
     "build": "npx uglifyjs src/transaction.js --compress --mangle --comments --source-map -o index.js",
     "precommit": "npm run build && git add .",
@@ -43,6 +44,7 @@
     "jsdoc": "^3.6.5",
     "mocha": "^8.1.1",
     "npm-version": "^1.1.0",
+    "standard": "^14.3.4",
     "uglify-es": "^3.3.9"
   }
 }
