@@ -1,3 +1,4 @@
+/* eslint-env mocha */
 Tx = require('../src/transaction')
 
 // Loading test suites for individual Tx features
