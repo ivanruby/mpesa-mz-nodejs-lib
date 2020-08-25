@@ -16,39 +16,64 @@ NodeRSA = require('node-rsa');
  * @return {Class} Transaction
  */
 module.exports = function (options) {
-	/** Public key */
+	/** Public key
+	 * @member _public_key
+	 */
 	this._public_key = options.public_key || '',
 
-	/** API Host */
-	this._api_host = options.api_host || '',
+		/** API Host
+		 * @member _api_host
+		 */
+		this._api_host = options.api_host || '',
 
-	this._api_key = options.api_key || '',
-	this._origin = options.origin || '',
-	this._service_provider_code = options.service_provider_code || '',
-	this._initiator_identifier = options.initiator_identifier || '',
-	this._security_credential = options.security_credential || '',
-  
-	/**
-   * MSISDN Validation
-   */
-	this._validMSISDN;
+		/** API key
+		 * @member _api_key
+		 */
+		this._api_key = options.api_key || '',
+
+		/** Origin key
+		 * @member _origin
+		 */
+		this._origin = options.origin || '',
+
+		/** Service Provider Code
+		 * @member _service_provider_code
+		 */
+		this._service_provider_code = options.service_provider_code || '',
+
+		/** Initiator Identifier
+		 * @member _initiator_identifier
+		 */
+		this._initiator_identifier = options.initiator_identifier || '',
+
+		/** Security Credential
+		 * @member _security_credential
+		 */
+		this._security_credential = options.security_credential || '',
+
+		/**
+	   * MSISDN Validation
+	   * @member _validMSISDN - Holds a validated phone number
+	   */
+		this._validMSISDN;
 
 	/**
    * Validates a customer's MSISDN (Phone number)
    * 
-   * @name {Transaction#_isValidMSISDN}
+   * @member _isValidMSISDN
+   * @function
    * @param {string} msisdn
    * @return {boolean} isValid
    */
-	this._isValidMSISDN = function(msisdn){
+	this._isValidMSISDN = function (msisdn) {
 		this._validMSISDN = '';
 		isValid = false;
 
 		// Is it a number?
-		if (typeof parseInt(msisdn) == 'number'){
+		if (typeof parseInt(msisdn) == 'number') {
 			// Is the length 12 and starts with 258?
-			if ( msisdn.length == 12 && msisdn.substring(0, 3) == '258' ) {
-				buffer = msisdn.substring(3,5);
+			if (msisdn.length == 12 && msisdn.substring(0, 3) == '258') {
+				buffer = msisdn.substring(3, 5);
 				// Is it an 84 or 85 number?
 				if (buffer == '84' || buffer == '85') {
 					this._validMSISDN = msisdn;
@@ -56,12 +81,12 @@ module.exports = function (options) {
 				}
 				// Otherwise, is the length 9?
 			} else if (msisdn.length == 9) {
-				buffer = msisdn.substring(0,2);
+				buffer = msisdn.substring(0, 2);
 				// Is it an 84 or 85 number?
 				if (buffer == '84' || buffer == '85') {
 					this._validMSISDN = '258' + msisdn;
 					isValid = true;
-				}        
+				}
 			}
 		}
 
@@ -70,94 +95,96 @@ module.exports = function (options) {
 
 	/**
    * Validation buffer
+   * @member validation_errors - Hold array of errors after error validation
    */
 	this.validation_errors;
 
 	/**
    * Validates all configuration parameters
    * 
-   * @name Transaction#_isValidated
+   * @member _isValidated
+   * @function
    * @param {string} type
    * @param {object} data
    * @return {boolean}
    */
-	this._isValidated = function(type, data){
+	this._isValidated = function (type, data) {
 		this.validation_errors = [];
 
-		switch(type){
-		case 'config':
-			if (!this._api_host || this._api_host === '')
-				this.validation_errors.push(' API Host');
-        
-			if (!this._api_key || this._api_key === '')
-				this.validation_errors.push(' API Key');
+		switch (type) {
+			case 'config':
+				if (!this._api_host || this._api_host === '')
+					this.validation_errors.push(' API Host');
 
-			if (!this._initiator_identifier || this._initiator_identifier === '')
-				this.validation_errors.push(' Initiator Identifier');
-        
-			if (!this._origin || this._origin === '')
-				this.validation_errors.push(' Origin');
-        
-			if (!this._public_key || this._public_key === '')
-				this.validation_errors.push(' Public key');
-        
-			if (!this._security_credential || this._security_credential === '')
-				this.validation_errors.push(' Security credentials');
-        
-			if (!this._service_provider_code || this._service_provider_code === '')
-				this.validation_errors.push(' Service provider code ');
-			break;
-		case 'c2b':
-			if ( !data.amount || data.amount === '' || isNaN(parseFloat(data.amount)) || parseFloat(data.amount) <= 0)
-				this.validation_errors.push(' C2B Amount');
-        
-			if ( !data.msisdn || data.msisdn === '' || !this._isValidMSISDN(data.msisdn) )
-				this.validation_errors.push(' C2B MSISDN');
-        
-			if ( !data.reference || data.reference === '' )
-				this.validation_errors.push(' C2B Reference');
-        
-			if ( !data.third_party_reference || data.third_party_reference === '' )
-				this.validation_errors.push(' C2B 3rd-party Reference');
-        
-			break;
-		case 'query':
-			if ( !data.query_reference || data.query_reference === '' )
-				this.validation_errors.push(' Query Reference');
-        
-			if ( !data.third_party_reference || data.third_party_reference === '' )
-				this.validation_errors.push(' Query 3rd-party Reference');
-        
-			break;
-		case 'reversal':
-			if ( !data.amount || data.amount === '' || !isNaN(parseFloat(data.amount)) )
-				this.validation_errors.push(' Reversal Amount');
-        
-			if ( !data.transaction_id || data.transaction_id === '' )
-				this.validation_errors.push(' Reversal Transaction ID');
-          
-			if ( !data.third_party_reference || data.third_party_reference === '' )
-				this.validation_errors.push(' Reversal 3rd-party Reference');
+				if (!this._api_key || this._api_key === '')
+					this.validation_errors.push(' API Key');
+
+				if (!this._initiator_identifier || this._initiator_identifier === '')
+					this.validation_errors.push(' Initiator Identifier');
+
+				if (!this._origin || this._origin === '')
+					this.validation_errors.push(' Origin');
+
+				if (!this._public_key || this._public_key === '')
+					this.validation_errors.push(' Public key');
+
+				if (!this._security_credential || this._security_credential === '')
+					this.validation_errors.push(' Security credentials');
+
+				if (!this._service_provider_code || this._service_provider_code === '')
+					this.validation_errors.push(' Service provider code ');
+				break;
+			case 'c2b':
+				if (!data.amount || data.amount === '' || isNaN(parseFloat(data.amount)) || parseFloat(data.amount) <= 0)
+					this.validation_errors.push(' C2B Amount');
+
+				if (!data.msisdn || data.msisdn === '' || !this._isValidMSISDN(data.msisdn))
+					this.validation_errors.push(' C2B MSISDN');
+
+				if (!data.reference || data.reference === '')
+					this.validation_errors.push(' C2B Reference');
+
+				if (!data.third_party_reference || data.third_party_reference === '')
+					this.validation_errors.push(' C2B 3rd-party Reference');
+
+				break;
+			case 'query':
+				if (!data.query_reference || data.query_reference === '')
+					this.validation_errors.push(' Query Reference');
+
+				if (!data.third_party_reference || data.third_party_reference === '')
+					this.validation_errors.push(' Query 3rd-party Reference');
+
+				break;
+			case 'reversal':
+				if (!data.amount || data.amount === '' || !isNaN(parseFloat(data.amount)))
+					this.validation_errors.push(' Reversal Amount');
+
+				if (!data.transaction_id || data.transaction_id === '')
+					this.validation_errors.push(' Reversal Transaction ID');
+
+				if (!data.third_party_reference || data.third_party_reference === '')
+					this.validation_errors.push(' Reversal 3rd-party Reference');
 		}
-    
+
 		if (this.validation_errors.length > 0)
 			return false;
-    
+
 		return true;
 	};
 
 	/**
    * Generates a Bearer Token
-   * 
+   * @member _getBearerToken
    * @return {string} bearer_token
    */
 	this._getBearerToken = function () {
 		if (this._isValidated('config', {})) {
 			// Structuring certificate string
 			certificate =
-        '-----BEGIN PUBLIC KEY-----\n' +
-        this._public_key +
-        '\n-----END PUBLIC KEY-----';
+				'-----BEGIN PUBLIC KEY-----\n' +
+				this._public_key +
+				'\n-----END PUBLIC KEY-----';
 
 			// Create NodeRSA object with public from formatted certificate
 			public_key = new NodeRSA();
@@ -176,12 +203,14 @@ module.exports = function (options) {
 
 	/**
    * Hold the headers for each API request
+   * @member _request_headers
    */
 	this._request_headers = {};
 
 	/**
    * Initiates a C2B transaction on the M-Pesa API.
    * 
+   * @public
    * @param {float} $amount
    * @param {string} $msisdn
    * @param {string} $reference
@@ -190,11 +219,11 @@ module.exports = function (options) {
    */
 	this.c2b = function (transaction_data) {
 
-		if (this._isValidated('c2b', transaction_data)){
+		if (this._isValidated('c2b', transaction_data)) {
 			request = {
 				method: 'post',
 				url:
-          'https://' + this._api_host + ':18352/ipg/v1x/c2bPayment/singleStage/',
+					'https://' + this._api_host + ':18352/ipg/v1x/c2bPayment/singleStage/',
 				data: {
 					input_ServiceProviderCode: this._service_provider_code,
 					input_CustomerMSISDN: this._validMSISDN,
@@ -220,27 +249,28 @@ module.exports = function (options) {
 			throw Error('Missing or invalid C2B parameters:' + this.validation_errors.toString());
 		}
 	};
-  
+
 	/**
    * Initiates a transaction Query on the M-Pesa API.
    * 
+   * @public
    * @param {string} query_reference
    * @param {string} third_party_reference
    * @return {object} Promise
    */
 	this.query = function (query_data) {
-		if (this._isValidated('query', query_data)){
+		if (this._isValidated('query', query_data)) {
 			request = {
 				method: 'get',
 				url:
-          'https://' +
-          this._api_host +
-          ':18353/ipg/v1x/queryTransactionStatus/?input_QueryReference=' +
-          query_data.query_reference +
-          '&input_ServiceProviderCode=' +
-          this._service_provider_code +
-          '&input_ThirdPartyReference=' +
-          query_data.third_party_reference,
+					'https://' +
+					this._api_host +
+					':18353/ipg/v1x/queryTransactionStatus/?input_QueryReference=' +
+					query_data.query_reference +
+					'&input_ServiceProviderCode=' +
+					this._service_provider_code +
+					'&input_ThirdPartyReference=' +
+					query_data.third_party_reference,
 				headers: this._request_headers,
 			};
 
@@ -264,6 +294,7 @@ module.exports = function (options) {
 	/**
    * Initiates a transaction Reversal on the M-Pesa API
    * 
+   * @public
    * @param {number} amount
    * @param {string} transaction_id
    * @param {string} third_party_reference
@@ -300,14 +331,14 @@ module.exports = function (options) {
 			});
 		} else {
 			throw Error('Missing or invalid Reversal parameters:' + this.validation_errors.toString());
-		}  
+		}
 	};
 
 	/**
    * Validate config data and throw Errors if any is incomplete or invalid
    */
 	if (this._isValidated('config', {}))
-		this._request_headers = {      
+		this._request_headers = {
 			'Content-Type': 'application/json',
 			Origin: this._origin,
 			Authorization: this._getBearerToken(),
