@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>transaction.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
@@ -14,50 +14,98 @@
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/ionicons.min.css">
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme.css">
-    
-    
-    
-<svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none">
-    <defs>
+    <link type="text/css" rel="stylesheet" href="styles/ionicons.min.css" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="styles/prettify-tomorrow.css"
+    />
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="styles/clean-jsdoc-theme.css"
+    />
+
+    <svg
+      aria-hidden="true"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      style="display: none;"
+    >
+      <defs>
         <symbol id="copy-icon" viewbox="0 0 488.3 488.3">
-            <g>
-                <path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/>
-                <path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/>
-            </g>
+          <g>
+            <path
+              d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"
+            />
+            <path
+              d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"
+            />
+          </g>
         </symbol>
-    </defs>
-</svg>
+      </defs>
+    </svg>
+  </head>
+  <body>
+    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+    <label for="nav-trigger" class="navicon-button x">
+      <div class="navicon"></div>
+    </label>
 
-</head>
-<body>
-<input type="checkbox" id="nav-trigger" class="nav-trigger" />
-<label for="nav-trigger" class="navicon-button x">
-  <div class="navicon"></div>
-</label>
+    <label for="nav-trigger" class="overlay"></label>
 
-<label for="nav-trigger" class="overlay"></label>
+    <nav>
+      <h2>
+        <a href="index.html"><div class="text">Home</div></a>
+      </h2>
+      <div class="search-box">
+        <input type="text" placeholder="Search..." id="search-box" />
+        <div class="search-item-container" id="search-item-container">
+          <ul class="search-item-ul" id="search-item-ul"></ul>
+        </div>
+      </div>
+      <div class="sidebar-list-div">
+        <h3>Modules</h3>
+        <ul>
+          <li>
+            <a href="module-Transaction.html">Transaction</a>
+            <ul class="methods">
+              <li data-type="method">
+                <a href="module-Transaction.html#.c2b">c2b</a>
+              </li>
+              <li data-type="method">
+                <a href="module-Transaction.html#.query">query</a>
+              </li>
+              <li data-type="method">
+                <a href="module-Transaction.html#.reverse">reverse</a>
+              </li>
+              <li data-type="method">
+                <a href="module-Transaction.html#~_getBearerToken"
+                  >_getBearerToken</a
+                >
+              </li>
+              <li data-type="method">
+                <a href="module-Transaction.html#~_isValidated">_isValidated</a>
+              </li>
+              <li data-type="method">
+                <a href="module-Transaction.html#~_isValidMSISDN"
+                  >_isValidMSISDN</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-<nav>
-    <h2><a href="index.html"><div class="text">Home</div></a></h2><div class="search-box"><input type="text" placeholder="Search..." id="search-box" /><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-list-div"><h3>Modules</h3><ul><li><a href="module-Transaction.html">Transaction</a><ul class='methods'><li data-type='method'><a href="module-Transaction.html#.c2b">c2b</a></li><li data-type='method'><a href="module-Transaction.html#.query">query</a></li><li data-type='method'><a href="module-Transaction.html#.reverse">reverse</a></li><li data-type='method'><a href="module-Transaction.html#~_getBearerToken">_getBearerToken</a></li><li data-type='method'><a href="module-Transaction.html#~_isValidated">_isValidated</a></li><li data-type='method'><a href="module-Transaction.html#~_isValidMSISDN">_isValidMSISDN</a></li></ul></li></ul></div>
-</nav>
+    <div id="main">
+      <h1 class="page-title">transaction.js</h1>
 
-<div id="main">
-    
-    <h1 class="page-title">transaction.js</h1>
-    
-
-    
-
-
-
-    
-    <section>
+      <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/*!
+          <pre class="prettyprint source linenums"><code>/*!
  * A Node.JS library for the M-Pesa Mozambique API
  *
  * @author Ivan Ruby &lt;https://ivanruby.com>
@@ -475,27 +523,57 @@ module.exports = function (options) {
 		throw Error('Missing or invalid configuration parameters:' + this.validation_errors.toString());
 };</code></pre>
         </article>
-    </section>
+      </section>
+    </div>
 
+    <br class="clear" />
 
+    <footer></footer>
 
+    <script>
+      prettyPrint();
+    </script>
+    <script src="scripts/linenumber.js"></script>
+    <script>
+      var list = [
+        {
+          title: "Transaction",
+          link: '<a href="module-Transaction.html">Transaction</a>',
+        },
+        {
+          title: "module:Transaction.c2b",
+          link:
+            '<a href="module-Transaction.html#.c2b">module:Transaction.c2b &rtrif; undefined</a>',
+        },
+        {
+          title: "module:Transaction.query",
+          link:
+            '<a href="module-Transaction.html#.query">module:Transaction.query &rtrif; undefined</a>',
+        },
+        {
+          title: "module:Transaction.reverse",
+          link:
+            '<a href="module-Transaction.html#.reverse">module:Transaction.reverse &rtrif; undefined</a>',
+        },
+        {
+          title: "module:Transaction~_getBearerToken",
+          link:
+            '<a href="module-Transaction.html#~_getBearerToken">module:Transaction~_getBearerToken &rtrif; undefined</a>',
+        },
+        {
+          title: "module:Transaction~_isValidated",
+          link:
+            '<a href="module-Transaction.html#~_isValidated">module:Transaction~_isValidated &rtrif; undefined</a>',
+        },
+        {
+          title: "module:Transaction~_isValidMSISDN",
+          link:
+            '<a href="module-Transaction.html#~_isValidMSISDN">module:Transaction~_isValidMSISDN &rtrif; undefined</a>',
+        },
+      ];
+      setupSearch(list);
+    </script>
 
-</div>
-
-<br class="clear">
-
-<footer>
-  
-</footer>
-
-<script>prettyPrint();</script>
-<script src="scripts/linenumber.js"></script>
-<script>
-var list = [{"title":"Transaction","link":"<a href=\"module-Transaction.html\">Transaction</a>"},{"title":"module:Transaction.c2b","link":"<a href=\"module-Transaction.html#.c2b\">module:Transaction.c2b &rtrif; undefined</a>"},{"title":"module:Transaction.query","link":"<a href=\"module-Transaction.html#.query\">module:Transaction.query &rtrif; undefined</a>"},{"title":"module:Transaction.reverse","link":"<a href=\"module-Transaction.html#.reverse\">module:Transaction.reverse &rtrif; undefined</a>"},{"title":"module:Transaction~_getBearerToken","link":"<a href=\"module-Transaction.html#~_getBearerToken\">module:Transaction~_getBearerToken &rtrif; undefined</a>"},{"title":"module:Transaction~_isValidated","link":"<a href=\"module-Transaction.html#~_isValidated\">module:Transaction~_isValidated &rtrif; undefined</a>"},{"title":"module:Transaction~_isValidMSISDN","link":"<a href=\"module-Transaction.html#~_isValidMSISDN\">module:Transaction~_isValidMSISDN &rtrif; undefined</a>"}];
-setupSearch(list)
-</script>
-
- 
-<script type="text/javascript" src="scripts/misc.js"></script>
-</body>
+    <script type="text/javascript" src="scripts/misc.js"></script>
+  </body>
 </html>
