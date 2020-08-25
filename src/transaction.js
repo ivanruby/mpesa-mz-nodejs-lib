@@ -164,8 +164,7 @@ module.exports = function (options) {
 
         break
       case 'reversal':
-        console.log(data)
-        if (!data.amount || data.amount === '' || isNaN(parseFloat(data.amount))) { this.validation_errors.push(' Reversal Amount') }
+        if (!data.amount || data.amount === '' || isNaN(parseFloat(data.amount)) || parseFloat(data.amount) <= 0) { this.validation_errors.push(' Reversal Amount') }
 
         if (!data.transaction_id || data.transaction_id === '') { this.validation_errors.push(' Reversal Transaction ID') }
 
