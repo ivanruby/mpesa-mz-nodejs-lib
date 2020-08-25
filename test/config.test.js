@@ -14,11 +14,23 @@ module.exports = function(Tx){
             }, Error, /Missing or invalid configuration parameters/)
         })
 
-        it('API Host: should be present and non-empty', function () {
-            assert.throws(function() {
+        it('API Host: May be present and non-empty - Optional param', function () {
+            assert.doesNotThrow(function() {
                 tx = new Tx({
                     public_key: process.env.PUBLIC_KEY,
                     api_key: process.env.API_KEY,
+                    origin: process.env.ORIGIN,
+                    service_provider_code: process.env.SERVICE_PROVIDER_CODE,
+                    initiator_identifier: process.env.INITIATOR_IDENTIFIER,
+                    security_credential: process.env.SECURITY_CREDENTIAL
+                })
+            }, Error, /Missing or invalid configuration parameters:  API Host/ )
+
+            assert.doesNotThrow(function() {
+                tx = new Tx({
+                    public_key: process.env.PUBLIC_KEY,
+                    api_key: process.env.API_KEY,
+                    api_host: '',
                     origin: process.env.ORIGIN,
                     service_provider_code: process.env.SERVICE_PROVIDER_CODE,
                     initiator_identifier: process.env.INITIATOR_IDENTIFIER,

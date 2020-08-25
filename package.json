@@ -9,9 +9,10 @@
     "precommit": "npm run build && git add .",
     "commit": "git commit",
     "postcommit": "npm version patch && git push",
-    "predocs": "npx jsdoc --configure .jsdoc.json --verbose -d docs ",
-    "docs": "start ./docs/index.html",
-    "docs:mac": "open ./docs/index.html",
+    "predocs": "npx jsdoc --configure .jsdoc.json --verbose -d docs",
+    "docs": "start docs",
+    "docs:mac": "open docs",
+    "prerelease": "npm run precommit",
     "release": "np"
   },
   "repository": {
