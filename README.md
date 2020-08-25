@@ -9,6 +9,8 @@ A Node.js library for the M-Pesa Mozambique API
 
 Initially, a port of [mpesa-php-api](https://github.com/abdulmueid/mpesa-php-api) to Node.js
 
+Read documentation [here](https://ivanruby.github.io/mpesa-mz-nodejs-lib)
+
 ## Version
 
 Currently in beta version. Stable but not production-ready (v1.0.0)
