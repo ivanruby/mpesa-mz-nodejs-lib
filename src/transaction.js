@@ -9,18 +9,18 @@ var axios = require('axios')
 var NodeRSA = require('node-rsa')
 
 /**
- * Transaction module - Interacts with the M-Pesa API by exposing c2b, query and reversal methods.
+ * Transaction module - Interacts with the M-Pesa API by exposing c2b, query and reverse methods.
  * Throws errors if any of the methods receives incomplete or invalid parameters, including the class constructor
  *
  * @module Transaction
  * @param {object} options
- * @param {string} [options.api_host=api.sandbox.vm.co.mz] - Parameter required by the M-Pesa API
- * @param {string} options.api_key=empty-string - Parameter required by the M-Pesa API
- * @param {string} options.initiator_identifier=empty-string - Parameter required by the M-Pesa API
- * @param {string} options.origin=empty-string - Parameter required by the M-Pesa API
- * @param {string} options.public_key=empty-string - Parameter required by the M-Pesa API
- * @param {string} options.security_credential=empty-string - Parameter required by the M-Pesa API
- * @param {number} options.service_provider_code=empty-string - Parameter required by the M-Pesa API
+ * @param {string} [options.api_host=api.sandbox.vm.co.mz] - Hostname for the API
+ * @param {string} options.api_key=empty-string - Used for creating authorize trasactions on the API
+ * @param {string} options.initiator_identifier=empty-string - Provided by Vodacom MZ
+ * @param {string} options.origin=empty-string - Used for identifying hostname which is sending transaction requests
+ * @param {string} options.public_key=empty-string - Public Key for the M-Pesa API. Used for generating Authorization bearer tokens
+ * @param {string} options.security_credential=empty-string - Provided by Vodacom MZ
+ * @param {number} options.service_provider_code=empty-string - Provided by Vodacom MZ
  * @throws 'Missing or invalid configuration parameters' Error if options object is incomplete or invalid
  * @example
  * Transaction = require('mpesa-mz-nodejs-lib')
@@ -210,7 +210,12 @@ module.exports = function (options) {
   /**
    * Holds the request headers for each API request
    * @member _request_headers
-   * @type {string}
+   * @function 
+   * @type {object}
+   * @param {string} _origin - origin value from initialization
+   * @param {string} _public_key - public_key value from initialization
+   * @param {string} _api_key - api_key value from initialization
+   * @throws 'Missing or invalid configuration parameters' Error if _api_key, _origin or _public_key are missing or invalid from object instantiation
    */
   this._request_headers = {}
 
@@ -221,12 +226,13 @@ module.exports = function (options) {
    * @param {float}  transaction_data.amount - Value to transfer from Client to Business
    * @param {string} transaction_data.msisdn - Client's phone number
    * @param {string} transaction_data.reference - Transaction reference (unique)
-   * @param {string} transaction_data.third_party_reference - Third-party reference
+   * @param {string} transaction_data.third_party_reference - Third-party reference provided by Vodacom MZ
    * @throws 'Missing or invalid C2B parameters' Error if params are missing or invalid
    * @example
    * Transaction = require('mpesa-mz-nodejs-lib')
    * // Instantiate Transaction object with valid options params
    * tx = new Transaction(options)
+   * 
    * tx.c2b({
    * 	amount: 1,
    * 	msisdn: '821234567'
@@ -276,8 +282,8 @@ module.exports = function (options) {
    * Initiates a C2B (Client-to-Business) transaction Query on the M-Pesa API.
    *
    * @param {object} query_data
-   * @param {string} query_data.query_reference
-   * @param {string} query_data.third_party_reference
+   * @param {string} query_data.query_reference - TransactionID or ConversationID returned from the M-Pesa API
+   * @param {string} query_data.third_party_reference - Unique reference of the third-party system
    * @throws 'Missing or invalid Query parameters' Error is params are missing or invalid
    * @example
    * Transaction = require('mpesa-mz-nodejs-lib')
@@ -332,9 +338,9 @@ module.exports = function (options) {
    * Initiates a C2B (Client-to-Business) transaction Reversal on the M-Pesa API
    *
    * @param {object} transaction_data
-   * @param {number} [transaction_data.amount]
-   * @param {string} transaction_data.transaction_id
-   * @param {string} transaction_data.third_party_reference
+   * @param {number} [transaction_data.amount] - Amount of the transaction
+   * @param {string} transaction_data.transaction_id - TransactionID returned from the M-Pesa API
+   * @param {string} transaction_data.third_party_reference - Unique reference of the third-party system
    * @throws 'Missing or invalid Reversal parameters' Error if params are missing or invalid
    * @example
    * Transaction = require('mpesa-mz-nodejs-lib')
