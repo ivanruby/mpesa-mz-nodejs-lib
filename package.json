@@ -36,7 +36,8 @@
   "homepage": "https://github.com/ivanruby/mpesa-mz-nodejs-lib#readme",
   "dependencies": {
     "axios": "^0.19.2",
-    "node-rsa": "^1.0.8"
+    "node-rsa": "^1.0.8",
+    "np": "^6.4.0"
   },
   "devDependencies": {
     "clean-jsdoc-theme": "^2.2.11",

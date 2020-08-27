@@ -2,6 +2,8 @@
 
 ![Github](https://img.shields.io/github/package-json/v/ivanruby/mpesa-mz-nodejs-lib)
 ![Github](https://img.shields.io/npm/v/mpesa-mz-nodejs-lib)
+[![Maintainability](https://api.codeclimate.com/v1/badges/42700b1047f78a5dbfd8/maintainability)](https://codeclimate.com/github/ivanruby/mpesa-mz-nodejs-lib/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/42700b1047f78a5dbfd8/test_coverage)](https://codeclimate.com/github/ivanruby/mpesa-mz-nodejs-lib/test_coverage)
 [![Build Status](https://travis-ci.com/ivanruby/mpesa-mz-nodejs-lib.svg?branch=master)](https://travis-ci.com/ivanruby/mpesa-mz-nodejs-lib)
 ![GitHub](https://img.shields.io/github/license/ivanruby/mpesa-nodejs-api)
 
@@ -33,8 +35,8 @@ Currently in beta version. Stable but not production-ready (v1.0.0)
 - [x] Unit tests passing for all features (v0.4.x)
 - [x] Continuous Integration (v0.5.x)
 - [x] Documentation (code coverage, features) (v0.6.x)
-- [ ] Code refactoring (entire codebase) (v0.7.x)
-- [ ] Linting, code quality (v0.8.x)
+- [x] Linting, code quality (v0.7.x)
+- [ ] Code refactoring (entire codebase) (v0.8.x)
 - [ ] Rename library (v0.9.x)
 - [ ] All tests passing, functionalities stable (v1.0.0)
 
@@ -55,7 +57,7 @@ All parameters used in the examples correspond to the parameters required by the
 Transaction = require('mpesa-mz-nodejs-lib')
 
 // create the config object
-let config = {
+var config = {
     public_key: '<Public key>',
     api_host: 'api.sandbox.vm.co.mz',
     api_key: '<API key>',
@@ -93,17 +95,17 @@ transaction.c2b({
 // query the status of an existing transaction
 transaction
   .query({
-    query_reference: "<Transaction reference>",
-    third_party_reference: "<Third-party reference>",
+    query_reference: '<Transaction reference>',
+    third_party_reference: '<Third-party reference>'
   })
   // handle success
   .then(function (response) {
-    console.log(response);
+    console.log(response)
   })
   // handle error
   .catch(function (error) {
-    console.log(error);
-  });
+    console.log(error)
+  })
 ```
 
 ### Reversal of an existing transaction
@@ -114,18 +116,18 @@ transaction
 // Reverse a committed transaction
 transaction
   .reverse({
-    amount: "<floating-point number>",
-    transaction_id: "<Transaction ID>",
-    third_party_reference: "<Third-party reference>",
+    amount: '<floating-point number>',
+    transaction_id: '<Transaction ID>',
+    third_party_reference: '<Third-party reference>'
   })
   // handle success
   .then(function (response) {
-    console.log(response);
+    console.log(response)
   })
   // handle error
   .catch(function (error) {
-    console.log(error);
-  });
+    console.log(error)
+  })
 ```
 
 ### Error-handling
@@ -141,20 +143,20 @@ The names of the missing or invalid parameters are also appended to the error me
 Example
 
 ```js
-Transaction = require("mpesa-mz-nodejs-lib");
+Transaction = require('mpesa-mz-nodejs-lib')
 
 // create the config object, missing api_host
-let config = {
-  public_key: "<Public key>",
-  api_key: "<API key>",
-  origin: "<Origin>",
-  service_provider_code: "<Service provider code>",
-  initiator_identifier: "<Initiator Identifier>",
-  security_credential: "<Security Credential>",
-};
+var config = {
+  public_key: '<Public key>',
+  api_key: '<API key>',
+  origin: '<Origin>',
+  service_provider_code: '<Service provider code>',
+  initiator_identifier: '<Initiator Identifier>',
+  security_credential: '<Security Credential>'
+}
 
 // instantiate the Transaction object, initializing it with incomplete config
-transaction = new Transaction(config);
+transaction = new Transaction(config)
 ```
 
 Will throw a `Missing or invalid Configuration parameter: API Host` error
@@ -165,7 +167,7 @@ And
 Transaction = require('mpesa-mz-nodejs-lib')
 
 // create the config object, missing api_host
-let config = {
+var config = {
     public_key: '<Public key>',
     api_host: '<API host>',
     api_key: '<API key>',
