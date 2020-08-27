@@ -113,6 +113,10 @@ module.exports = function (options) {
     return isValid
   }
 
+  this._validateAmount = function(amount){
+    return (!amount || amount === '' || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0)
+  }
+
   /**
    * Validation buffer
    * @member validation_errors - Hold array of errors after error validation
@@ -148,7 +152,7 @@ module.exports = function (options) {
         if (!this._service_provider_code || this._service_provider_code === '') { this.validation_errors.push(' Service provider code ') }
         break
       case 'c2b':
-        if (!data.amount || data.amount === '' || isNaN(parseFloat(data.amount)) || parseFloat(data.amount) <= 0) { this.validation_errors.push(' C2B Amount') }
+        if (this._validateAmount(data.amount)) { this.validation_errors.push(' C2B Amount') }
 
         if (!data.msisdn || data.msisdn === '' || !this._isValidMSISDN(data.msisdn)) { this.validation_errors.push(' C2B MSISDN') }
 
@@ -164,7 +168,7 @@ module.exports = function (options) {
 
         break
       case 'reversal':
-        if (!data.amount || data.amount === '' || isNaN(parseFloat(data.amount)) || parseFloat(data.amount) <= 0) { this.validation_errors.push(' Reversal Amount') }
+        if (this._validateAmount(data.amount)) { this.validation_errors.push(' Reversal Amount') }
 
         if (!data.transaction_id || data.transaction_id === '') { this.validation_errors.push(' Reversal Transaction ID') }
 
