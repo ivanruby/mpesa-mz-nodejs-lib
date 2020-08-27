@@ -1,6 +1,11 @@
 language: node_js
 node_js:
   - 12
+install:
+  - npm ci
+cache:
+  directories:
+    - '$HOME/.npm'
 env:
   global:
     - CC_TEST_REPORTER_ID=0c0f562adec669b8f4aed91a94cda433f3605dcc68554cebb11fbf434da552ca

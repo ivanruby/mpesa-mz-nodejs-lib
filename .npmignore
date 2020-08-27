@@ -11,4 +11,5 @@ package-lock.json
 .jsdoc.json
 .travis.yml
 .gitignore
+.codeclimate.yml
 index.js.map
