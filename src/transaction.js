@@ -30,9 +30,9 @@ var NodeRSA = require('node-rsa')
  */
 module.exports = function (options) {
   /** Public key - Required by the M-Pesa API
-	* @member _public_key
-	* @type {string}
-	*/
+  * @member _public_key
+  * @type {string}
+  */
   this._public_key = options.public_key || '',
 
   /** API Host - Required by the M-Pesa API
@@ -92,10 +92,10 @@ module.exports = function (options) {
     // Is it a number?
     if (typeof parseInt(msisdn) === 'number') {
       // Is the length 12 and starts with 258?
-      if (msisdn.length == 12 && msisdn.substring(0, 3) == '258') {
+      if (msisdn.length === 12 && msisdn.substring(0, 3) === '258') {
         buffer = msisdn.substring(3, 5)
         // Is it an 84 or 85 number?
-        if (buffer == '84' || buffer == '85') {
+        if (buffer === '84' || buffer === '85') {
           this._validMSISDN = msisdn
           isValid = true
         }
@@ -103,7 +103,7 @@ module.exports = function (options) {
       } else if (msisdn.length == 9) {
         buffer = msisdn.substring(0, 2)
         // Is it an 84 or 85 number?
-        if (buffer == '84' || buffer == '85') {
+        if (buffer === '84' || buffer === '85') {
           this._validMSISDN = '258' + msisdn
           isValid = true
         }
@@ -113,7 +113,7 @@ module.exports = function (options) {
     return isValid
   }
 
-  this._validateAmount = function(amount){
+  this._validateAmount = function (amount) {
     return (!amount || amount === '' || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0)
   }
 
@@ -214,7 +214,7 @@ module.exports = function (options) {
   /**
    * Holds the request headers for each API request
    * @member _request_headers
-   * @function 
+   * @function
    * @type {object}
    * @param {string} _origin - origin value from initialization
    * @param {string} _public_key - public_key value from initialization
@@ -236,7 +236,7 @@ module.exports = function (options) {
    * Transaction = require('mpesa-mz-nodejs-lib')
    * // Instantiate Transaction object with valid options params
    * tx = new Transaction(options)
-   * 
+   *
    * tx.c2b({
    * 	amount: 1,
    * 	msisdn: '821234567'
@@ -356,9 +356,9 @@ module.exports = function (options) {
    * 	transaction_id: 'tvfs2503x1d'
    * 	third_party_reference:'12345'
    * }).then(function(data){
-   * 	console.log(data)
+   * console.log(data)
    * }).catch(function(error){
-   * 	console.log(error)
+   * console.log(error)
    * })
    *
    * @return {object} Promise

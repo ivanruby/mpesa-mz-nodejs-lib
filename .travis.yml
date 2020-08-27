@@ -6,6 +6,9 @@ install:
 cache:
   directories:
     - '$HOME/.npm'
+script:
+  - npm run lint
+  - npm test
 env:
   global:
     - CC_TEST_REPORTER_ID=0c0f562adec669b8f4aed91a94cda433f3605dcc68554cebb11fbf434da552ca
