@@ -223,6 +223,20 @@ module.exports = function (options) {
    */
   this._request_headers = {}
 
+  this._requestAsPromiseFrom = function(request){
+    return new Promise(function (resolve, reject) {
+      axios(request)
+        .then(function (response) {
+          console.log('Success')
+          resolve(response.data)
+        })
+        .catch(function (error) {
+          console.log('Fail')
+          reject(error.response.data)
+        })
+    })
+  }
+
   /**
    * Initiates a C2B (Client-to-Business) transaction on the M-Pesa API.
    *
@@ -266,17 +280,7 @@ module.exports = function (options) {
         headers: this._request_headers
       }
 
-      return new Promise(function (resolve, reject) {
-        axios(request)
-          .then(function (response) {
-            console.log('Success')
-            resolve(response.data)
-          })
-          .catch(function (error) {
-            console.log('Fail')
-            reject(error.response.data)
-          })
-      })
+      return this._requestAsPromiseFrom(request)
     } else {
       throw Error('Missing or invalid C2B parameters:' + this.validation_errors.toString())
     }
@@ -322,17 +326,7 @@ module.exports = function (options) {
       }
 
       // If all transaction properties exist and are valid, return promise
-      return new Promise(function (resolve, reject) {
-        axios(request)
-          .then(function (response) {
-            console.log('Success')
-            resolve(response.data)
-          })
-          .catch(function (error) {
-            console.log('Fail')
-            reject(error.response.data)
-          })
-      })
+      return this._requestAsPromiseFrom(request)
     } else {
       throw Error('Missing or invalid Query parameters:' + this.validation_errors.toString())
     }
@@ -381,17 +375,7 @@ module.exports = function (options) {
         headers: this._request_headers
       }
 
-      return new Promise(function (resolve, reject) {
-        axios(request)
-          .then(function (response) {
-            console.log('Success')
-            resolve(response.data)
-          })
-          .catch(function (error) {
-            console.log('Fail')
-            reject(error.response.data)
-          })
-      })
+      return this._requestAsPromiseFrom(request)
     } else {
       throw Error('Missing or invalid Reversal parameters:' + this.validation_errors.toString())
     }
