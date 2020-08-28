@@ -1,6 +1,8 @@
 .env
 .github
 .vscode
+.nyc_output
+coverage
 node_modules
 docs
 dist
