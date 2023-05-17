@@ -13,7 +13,7 @@ Initially, a port of [mpesa-php-api](https://github.com/abdulmueid/mpesa-php-api
 
 Read documentation [here](https://ivanruby.github.io/mpesa-mz-nodejs-lib)
 
-## Version
+## Version 0.7.11
 
 Currently in beta version. Stable but not production-ready (v1.0.0)
 
