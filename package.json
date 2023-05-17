@@ -2,7 +2,7 @@
   "name": "mpesa-mz-nodejs-lib",
   "version": "0.7.11",
   "description": "A node.js library for the M-Pesa Mozambique API",
-  "main": "index.min.js",
+  "main": "index.js",
   "scripts": {
     "lint": "npx standard src/transaction.js --fix",
     "test": "npx mocha",
