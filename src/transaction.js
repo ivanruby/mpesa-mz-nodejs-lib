@@ -246,7 +246,7 @@ module.exports = function (options) {
       // Return formatted string, Bearer token in base64 format
       return 'Bearer ' + Buffer.from(token).toString('base64')
     } else {
-      throw Error(
+      throw new Error(
         'Missing or invalid configuration parameters:' +
           this.validation_errors.toString()
       )
@@ -324,7 +324,7 @@ module.exports = function (options) {
 
       return this._requestAsPromiseFrom(request)
     } else {
-      throw Error(
+      throw new Error(
         'Missing or invalid C2B parameters:' + this.validation_errors.toString()
       )
     }
@@ -360,19 +360,19 @@ module.exports = function (options) {
         url:
           'https://' +
           this._api_host +
-          ':18353/ipg/v1x/queryTransactionStatus/?input_QueryReference=' +
-          query_data.query_reference +
-          '&input_ServiceProviderCode=' +
-          this._service_provider_code +
-          '&input_ThirdPartyReference=' +
-          query_data.third_party_reference,
+          ':18353/ipg/v1x/queryTransactionStatus/',
+        data: {
+          input_ServiceProviderCode: this._service_provider_code,
+          input_QueryReference: transaction_data.query_reference,
+          input_ThirdPartyReference: transaction_data.third_party_reference
+        },
         headers: this._request_headers
       }
 
       // If all transaction properties exist and are valid, return promise
       return this._requestAsPromiseFrom(request)
     } else {
-      throw Error(
+      throw new Error(
         'Missing or invalid Query parameters:' +
           this.validation_errors.toString()
       )
@@ -424,7 +424,7 @@ module.exports = function (options) {
 
       return this._requestAsPromiseFrom(request)
     } else {
-      throw Error(
+      throw new Error(
         'Missing or invalid Reversal parameters:' +
           this.validation_errors.toString()
       )
@@ -439,7 +439,7 @@ module.exports = function (options) {
       Authorization: this._getBearerToken()
     }
   } else {
-    throw Error(
+    throw new Error(
       'Missing or invalid configuration parameters:' +
         this.validation_errors.toString()
     )
