@@ -363,8 +363,8 @@ module.exports = function (options) {
           ':18353/ipg/v1x/queryTransactionStatus/',
         data: {
           input_ServiceProviderCode: this._service_provider_code,
-          input_QueryReference: transaction_data.query_reference,
-          input_ThirdPartyReference: transaction_data.third_party_reference
+          input_QueryReference: query_data.query_reference,
+          input_ThirdPartyReference: query_data.third_party_reference
         },
         headers: this._request_headers
       }
