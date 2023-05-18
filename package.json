@@ -10,7 +10,7 @@
     "coverage:html": "nyc --reporter=html mocha",
     "build": "npx uglifyjs src/transaction.js --compress --mangle --comments --source-map -o index.js",
     "release:git": "npm run build && git add . && git commit && npm version patch && git push",
-    "release:npm": "npm run build && git add . && git commit && np",
+    "release:npm": "npm run build && git add . && git commit && np npx",
     "predocs": "npx jsdoc --configure .jsdoc.json --verbose -d docs",
     "docs": "start docs",
     "docs:mac": "open docs"

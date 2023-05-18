@@ -272,7 +272,7 @@ module.exports = function (options) {
           resolve(response.data)
         })
         .catch(function (error) {
-          reject(error.response.data)
+          reject(error.toJSON())
         })
     })
   }
