@@ -360,7 +360,7 @@ module.exports = function (options) {
         url:
           'https://' +
           this._api_host +
-          ':18353/ipg/v1x/queryTransactionStatus/input_ServiceProviderCode=' +
+          ':18353/ipg/v1x/queryTransactionStatus/?input_ServiceProviderCode=' +
           this._service_provider_code +
           '&input_QueryReference=' +
           query_data.query_reference +
