@@ -431,6 +431,59 @@ module.exports = function (options) {
     }
   }
 
+  /**
+   * Initiates a B2C (Business-to-Client) transaction on the M-Pesa API
+   *
+   * @param {object} transaction_data
+   * @param {float}  transaction_data.amount - Value to transfer from Business to Client
+   * @param {string} transaction_data.msisdn - Client's phone number
+   * @param {string} transaction_data.reference - Transaction reference (unique)
+   * @param {string} transaction_data.third_party_reference - Third-party reference provided by Vodacom MZ
+   * @throws 'Missing or invalid B2C parameters' Error if params are missing or invalid
+   * @example
+   * Transaction = require('mpesa-mz-nodejs-lib')
+   * // Instantiate Transaction object with valid options params
+   * tx = new Transaction(options)
+   *
+   * tx.b2c({
+   * 	amount: 1,
+   * 	msisdn: '821234567'
+   * 	reference: 'T001',
+   * 	third_party_reference: '12345'
+   * }).then(function(data){
+   * 	console.log(data)
+   * }).catch(function(error){
+   * 	console.log(error)
+   * })
+   *
+   * @return {object} Promise
+   */
+  this.b2c = function (transaction_data) {
+    if (this._isValidated('c2b', transaction_data)) {
+      request = {
+        method: 'put',
+        url: 'https://' + this._api_host + ':18345/ipg/v1x/b2cPayment/',
+        data: {
+          input_ReversalAmount: Number.parseFloat(
+            transaction_data.amount
+          ).toFixed(2),
+          input_ServiceProviderCode: this._service_provider_code,
+          input_CustomerMSISDN: this._validMSISDN,
+          input_Amount: parseFloat(transaction_data.amount).toFixed(2),
+          input_TransactionReference: transaction_data.reference,
+          input_ThirdPartyReference: transaction_data.third_party_reference
+        },
+        headers: this._request_headers
+      }
+
+      return this._requestAsPromiseFrom(request)
+    } else {
+      throw new Error(
+        'Missing or invalid B2C parameters:' + this.validation_errors.toString()
+      )
+    }
+  }
+
   // Validate config data and throw config errors if any param is missing or invalid
   if (this._isValidated('config', {})) {
     this._request_headers = {
