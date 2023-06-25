@@ -27,6 +27,7 @@ Currently in beta version. Stable but not production-ready (v1.0.0)
 ## Status
 
 - [x] C2B Transaction
+- [x] B2C Transaction
 - [x] Transaction status query
 - [x] Transaction reversal
 

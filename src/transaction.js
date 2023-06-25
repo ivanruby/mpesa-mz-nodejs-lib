@@ -461,7 +461,7 @@ module.exports = function (options) {
   this.b2c = function (transaction_data) {
     if (this._isValidated('c2b', transaction_data)) {
       request = {
-        method: 'put',
+        method: 'post',
         url: 'https://' + this._api_host + ':18345/ipg/v1x/b2cPayment/',
         data: {
           input_ReversalAmount: Number.parseFloat(
