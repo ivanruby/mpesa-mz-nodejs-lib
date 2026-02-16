@@ -5,8 +5,8 @@
  * @license MIT
  */
 
-var axios = require('axios')
-var NodeRSA = require('node-rsa')
+const axios = require('axios')
+const NodeRSA = require('node-rsa')
 
 /**
  * Transaction module - Interacts with the M-Pesa API by exposing c2b, query and reverse methods.
@@ -33,42 +33,42 @@ module.exports = function (options) {
    * @member _public_key
    * @type {string}
    */
-  ;(this._public_key = options.public_key || ''),
-    /** API Host - Required by the M-Pesa API
-     * @member _api_host
-     * @type {string}
-     */
-    (this._api_host = options.api_host || 'api.sandbox.vm.co.mz'),
-    /** API key - Required by the M-Pesa API
-     * @member _api_key
-     * @type {string}
-     */
-    (this._api_key = options.api_key || ''),
-    /** Origin - Required by the M-Pesa API
-     * @member _origin
-     * @type {string}
-     */
-    (this._origin = options.origin || ''),
-    /** Service Provider Code - Required by the M-Pesa API
-     * @member _service_provider_code
-     * @type {number}
-     */
-    (this._service_provider_code = options.service_provider_code || ''),
-    /** Initiator Identifier - Required by the M-Pesa API
-     * @member _initiator_identifier
-     * @type {string}
-     */
-    (this._initiator_identifier = options.initiator_identifier || ''),
-    /** Security Credential - Required by the M-Pesa API
-     * @member _security_credential
-     * @type {string}
-     */
-    (this._security_credential = options.security_credential || ''),
-    /**
-     * MSISDN Validation
-     * @member _validMSISDN - Holds a validated phone number
-     */
-    this._validMSISDN
+  ; (this._public_key = options.public_key || ''),
+  /** API Host - Required by the M-Pesa API
+       * @member _api_host
+       * @type {string}
+       */
+  (this._api_host = options.api_host || 'api.sandbox.vm.co.mz'),
+  /** API key - Required by the M-Pesa API
+       * @member _api_key
+       * @type {string}
+       */
+  (this._api_key = options.api_key || ''),
+  /** Origin - Required by the M-Pesa API
+       * @member _origin
+       * @type {string}
+       */
+  (this._origin = options.origin || ''),
+  /** Service Provider Code - Required by the M-Pesa API
+       * @member _service_provider_code
+       * @type {number}
+       */
+  (this._service_provider_code = options.service_provider_code || ''),
+  /** Initiator Identifier - Required by the M-Pesa API
+       * @member _initiator_identifier
+       * @type {string}
+       */
+  (this._initiator_identifier = options.initiator_identifier || ''),
+  /** Security Credential - Required by the M-Pesa API
+       * @member _security_credential
+       * @type {string}
+       */
+  (this._security_credential = options.security_credential || ''),
+  /**
+       * MSISDN Validation
+       * @member _validMSISDN - Holds a validated phone number
+       */
+  this._validMSISDN
 
   /**
    * Validates a customer's MSISDN (Phone number)
@@ -80,21 +80,21 @@ module.exports = function (options) {
    */
   this._isValidMSISDN = function (msisdn) {
     this._validMSISDN = ''
-    isValid = false
+    let isValid = false
 
     // Is it a number?
     if (typeof parseInt(msisdn) === 'number') {
       // Is the length 12 and starts with 258?
       if (msisdn.length === 12 && msisdn.substring(0, 3) === '258') {
-        buffer = msisdn.substring(3, 5)
+        const buffer = msisdn.substring(3, 5)
         // Is it an 84 or 85 number?
         if (buffer === '84' || buffer === '85') {
           this._validMSISDN = msisdn
           isValid = true
         }
         // Otherwise, is the length 9?
-      } else if (msisdn.length == 9) {
-        buffer = msisdn.substring(0, 2)
+      } else if (msisdn.length === 9) {
+        const buffer = msisdn.substring(0, 2)
         // Is it an 84 or 85 number?
         if (buffer === '84' || buffer === '85') {
           this._validMSISDN = '258' + msisdn
@@ -230,25 +230,25 @@ module.exports = function (options) {
   this._getBearerToken = function () {
     if (this._isValidated('config', {})) {
       // Structuring certificate string
-      certificate =
+      const certificate =
         '-----BEGIN PUBLIC KEY-----\n' +
         this._public_key +
         '\n-----END PUBLIC KEY-----'
 
       // Create NodeRSA object with public from formatted certificate
-      public_key = new NodeRSA()
+      const public_key = new NodeRSA()
       public_key.setOptions({ encryptionScheme: 'pkcs1' })
       public_key.importKey(Buffer.from(certificate), 'public')
 
       // Encryt API key (data) using public key
-      token = public_key.encrypt(Buffer.from(this._api_key))
+      const token = public_key.encrypt(Buffer.from(this._api_key))
 
       // Return formatted string, Bearer token in base64 format
       return 'Bearer ' + Buffer.from(token).toString('base64')
     } else {
       throw new Error(
         'Missing or invalid configuration parameters:' +
-          this.validation_errors.toString()
+        this.validation_errors.toString()
       )
     }
   }
@@ -306,7 +306,7 @@ module.exports = function (options) {
    */
   this.c2b = function (transaction_data) {
     if (this._isValidated('c2b', transaction_data)) {
-      request = {
+      const request = {
         method: 'post',
         url:
           'https://' +
@@ -355,7 +355,7 @@ module.exports = function (options) {
    */
   this.query = function (query_data) {
     if (this._isValidated('query', query_data)) {
-      request = {
+      const request = {
         method: 'get',
         url:
           'https://' +
@@ -374,7 +374,7 @@ module.exports = function (options) {
     } else {
       throw new Error(
         'Missing or invalid Query parameters:' +
-          this.validation_errors.toString()
+        this.validation_errors.toString()
       )
     }
   }
@@ -406,7 +406,7 @@ module.exports = function (options) {
    */
   this.reverse = function (transaction_data) {
     if (this._isValidated('reversal', transaction_data)) {
-      request = {
+      const request = {
         method: 'put',
         url: 'https://' + this._api_host + ':18354/ipg/v1x/reversal/',
         data: {
@@ -426,7 +426,7 @@ module.exports = function (options) {
     } else {
       throw new Error(
         'Missing or invalid Reversal parameters:' +
-          this.validation_errors.toString()
+        this.validation_errors.toString()
       )
     }
   }
@@ -460,7 +460,7 @@ module.exports = function (options) {
    */
   this.b2c = function (transaction_data) {
     if (this._isValidated('c2b', transaction_data)) {
-      request = {
+      const request = {
         method: 'post',
         url: 'https://' + this._api_host + ':18345/ipg/v1x/b2cPayment/',
         data: {
@@ -494,7 +494,7 @@ module.exports = function (options) {
   } else {
     throw new Error(
       'Missing or invalid configuration parameters:' +
-        this.validation_errors.toString()
+      this.validation_errors.toString()
     )
   }
 }
