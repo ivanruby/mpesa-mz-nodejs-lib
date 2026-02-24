@@ -34,20 +34,28 @@
   },
   "homepage": "https://github.com/ivanruby/mpesa-mz-nodejs-lib#readme",
   "dependencies": {
-    "axios": "^0.21.2",
+    "axios": "^1.13.5",
     "node-rsa": "^1.0.8"
   },
   "devDependencies": {
-    "clean-jsdoc-theme": "^2.2.11",
-    "dotenv": "^8.2.0",
-    "jsdoc": "^3.6.5",
-    "mocha": "^8.1.1",
+    "clean-jsdoc-theme": "^4.3.0",
+    "dotenv": "^17.3.1",
+    "jsdoc": "^4.0.5",
+    "mocha": "^11.7.5",
     "npm-version": "^1.1.0",
     "nyc": "^15.1.0",
-    "standard": "^14.3.4",
+    "standard": "^17.1.2",
     "uglify-js": "^3.10.2"
   },
   "engines": {
     "node": ">14.0.0"
+  },
+  "overrides": {
+    "mocha": {
+      "diff": "8.0.3"
+    },
+    "npm-version": {
+      "semver": "^5.7.2"
+    }
   }
 }
